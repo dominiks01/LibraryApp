@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.EmployeePanelController">
+   <center>
+      <Pane prefHeight="721.0" prefWidth="1000.0">
+         <children>
+            <AnchorPane layoutX="327.0" layoutY="42.0" prefHeight="400.0" prefWidth="298.0">
+               <children>
+                  <Text fx:id="errorMsg" layoutX="206.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="188.0" />
+                  <VBox layoutX="24.0" layoutY="28.0" prefHeight="318.0" prefWidth="298.0">
+                     <children>
+                        <Button fx:id="addEmployee" mnemonicParsing="false" onAction="#handleAddEmployeeAction" prefHeight="34.0" prefWidth="232.0" text="Dodaj pracownika">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="addNewBook" mnemonicParsing="false" onAction="#handleAddNewBookAction" prefHeight="34.0" prefWidth="233.0" text="Dodaj książkę">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="showStatsButton" mnemonicParsing="false" onAction="#showStats" prefHeight="34.0" prefWidth="234.0" text="Statystyki">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#acceptRental" prefHeight="34.0" prefWidth="234.0" text="Akcepacja wypożyczeń" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <HBox prefHeight="54.0" prefWidth="998.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="974.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
+               <children>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="13.0" />
+                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goBackAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&lt;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="20.0" />
+                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&gt;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="25.0" />
+                  <Button fx:id="mainPage" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="31.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Główny Panel">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="18.0" />
+                  <Button fx:id="myRentals" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="31.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="Moje Wypożyczenia" visible="false">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="370.0" />
+                  <ChoiceBox fx:id="themeChange" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="168.0">
+                     <HBox.margin>
+                        <Insets right="10.0" top="-1.5" />
+                     </HBox.margin>
+                  </ChoiceBox>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="16.0" />
+                  <Button fx:id="logOut" contentDisplay="BOTTOM" minHeight="30.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Wyloguj się">
+                     <HBox.margin>
+                        <Insets top="1.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="14.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="2.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>
