@@ -134,15 +134,6 @@ public class ModelService {
         return rentalRepository.findRentalsWithoutAcceptance();
     }
 
-
-    public void addNewReader(Reader reader) {
-        readerRepository.save(reader);
-    }
-
-    public boolean isEmailFree(String email){
-        return !readerRepository.existsByEmail(email);
-    }
-
     public Reader getReaderByEmail(String email){
         return readerRepository.findByEmail(email);
     }

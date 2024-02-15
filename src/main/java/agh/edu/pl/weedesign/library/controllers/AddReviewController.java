@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
-public class AddReviewController {
+public class AddReviewController extends IController {
     private final RentalsController rentalsController;
     @FXML
     private Button cancelButton;
@@ -43,6 +46,10 @@ public class AddReviewController {
     private Rental rental;
     private final RentalService rentalService;
     private final ReviewRepository reviewRepository;
+
+    @FXML
+    private ImageView image_cover;
+
     @Autowired
     public AddReviewController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService){
         this.reviewService = reviewService;
@@ -50,9 +57,23 @@ public class AddReviewController {
         this.rentalsController = rentalsController;
         this.reviewRepository = reviewRepository;
     }
+
+    @Override
+    public void consumeData(){
+        this.rental = rentalsController.getSelectedRental();
+
+        Image img;
+
+        try {
+            img = new Image("" + this.rental.getBookCopy().getBook().getCoverUrl() + "");
+            image_cover.setImage(img);
+        } catch (Exception e){
+            System.out.println("Cover not found");
+        }
+    }
+
     @FXML
     public void initialize(){
-        this.rental = rentalsController.getSelectedRental();
     }
     @FXML
     private void handleAddReviewAction(ActionEvent event){
@@ -68,7 +89,7 @@ public class AddReviewController {
     }
     @FXML
     private void handleCancelAction(ActionEvent event){
-        LibraryApplication.getAppController().switchScene(SceneType.SINGLE_RENTAL);
+//        LibraryApplication.getAppController().switchScene(SceneType.SINGLE_RENTAL);
     }
 
     @Transactional
@@ -76,6 +97,31 @@ public class AddReviewController {
         rental.setReview(review);
         reviewService.addNewReview(review);
         rental = rentalService.updateRental(rental);
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW);
+//        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW);
     }
+
+    public void switchScene(SceneType sceneType) throws IOException {
+        super.switchScene(sceneType);
+    }
+
+    public void goBackAction(){
+        super.goBack();
+    }
+
+    public void goForwardAction(){
+        super.goForward();
+    }
+
+    public void mainPageButtonHandler() throws IOException {
+        super.switchScene(SceneType.BOOK_LIST);
+    }
+
+    public void myRentalsButtonHandler() throws IOException {
+        super.switchScene(SceneType.RENTALS_VIEW);
+    }
+
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
+    }
+
 }

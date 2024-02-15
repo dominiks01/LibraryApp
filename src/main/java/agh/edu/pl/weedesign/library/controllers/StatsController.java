@@ -22,34 +22,45 @@ import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
 
 
 @Controller
-public class StatsController {
+public class StatsController extends IController{
 
     @FXML
     private Text readersText;
+
     @FXML
     private Text booksText;
+
     @FXML
     private Text employeesText;
+
     @FXML
     private PieChart sexPlot;
+
     @FXML
     private BarChart bookPlot;
+
     @FXML
     private BarChart rentedBooksPlot;
+
     @FXML
     private LineChart rentalPlot;
+
     @FXML
     private LineChart incomePlot;
+
     @FXML
     private BarChart freqBookPlot;
+
     @FXML
     private BarChart freqCategoryPlot;
+
     @FXML
     private BarChart freqReaderPlot;
 
@@ -225,8 +236,6 @@ public class StatsController {
         }
         this.freqReaderPlot.legendVisibleProperty().set(false);
         this.freqReaderPlot.getData().add(freqReaderSeries);
-
-
     }
 
     public void goBackAction(){
@@ -237,7 +246,7 @@ public class StatsController {
         LibraryApplication.getAppController().forward();
     }
 
-    public void mainPageButtonHandler(){
+    public void mainPageButtonHandler() throws IOException {
         LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL); 
     }
 
@@ -245,7 +254,7 @@ public class StatsController {
         LibraryApplication.changeTheme(themeChange.getValue());
     }
 
-    public void LogOutAction(){
+    public void LogOutAction() throws IOException {
         LibraryApplication.getAppController().logOut();
     }
 

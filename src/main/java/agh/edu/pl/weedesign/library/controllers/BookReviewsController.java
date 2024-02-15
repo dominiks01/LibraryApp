@@ -4,8 +4,7 @@ import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.review.Review;
 import agh.edu.pl.weedesign.library.entities.review.ReviewRepository;
-import agh.edu.pl.weedesign.library.helpers.DataProvider;
-import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -14,19 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import javax.persistence.TypedQuery;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 @Controller
 @Lazy
-public class BookReviewsController {
+public class BookReviewsController extends IController {
     private List<Review> reviewList;
     private Book book;
     private ReviewRepository reviewRepository;
@@ -57,21 +50,20 @@ public class BookReviewsController {
 
     @FXML
     private void handleBackAction(){
-        LibraryApplication.getAppController().switchScene(SceneType.BOOK_VIEW);
+//        LibraryApplication.getAppController().switchScene(SceneType.BOOK_VIEW);
     }
 
     public BookReviewsController(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
-    @FXML
-    public void initialize(){
-
-        this.book = DataProvider.getSelectedBook();
+    @Override
+    public void consumeData(){
+        this.book = super.dataService.getSelectedBook();
 
         if(this.book == null){
             System.out.println("No book was selected");
-            LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
+//            LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
         }
 
         this.reviewList = reviewRepository.findReviewsOfBook(book.getId());
@@ -90,6 +82,12 @@ public class BookReviewsController {
 
     }
 
+    @FXML
+    public void initialize(){
+
+
+    }
+
     public void goBackAction(){
         LibraryApplication.getAppController().back();
     }
@@ -99,11 +97,11 @@ public class BookReviewsController {
     }
 
     public void mainPageButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
+//        LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
     }
 
     public void myRentalsButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW); 
+//        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW);
     }
 
     public void changeTheme(ActionEvent e){
@@ -111,6 +109,6 @@ public class BookReviewsController {
     }
 
     public void LogOutAction(){
-        LibraryApplication.getAppController().logOut();
+//        LibraryApplication.getAppController().logOut();
     }
 }

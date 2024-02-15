@@ -8,21 +8,19 @@ import org.springframework.stereotype.Controller;
 
 import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
-import agh.edu.pl.weedesign.library.helpers.DataProvider;
-import agh.edu.pl.weedesign.library.helpers.Themes;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
 @Controller
-public class BookViewController {
+public class BookViewController extends IController {
     private Book book;
     private ModelService service;
 
@@ -60,19 +58,16 @@ public class BookViewController {
     private Button  myRentals;
 
     @FXML 
-    private ChoiceBox<String> themeChange;
-
-    @FXML 
     private Button logOut; 
     
     @FXML
     public void initialize() throws IOException  {
-        this.book = LibraryApplication.getBook();
+    }
 
-        themeChange.getItems().addAll(Themes.getAllThemes());
-        themeChange.setOnAction(this::changeTheme);
-        themeChange.setValue(LibraryApplication.getTheme());
-        
+    @Override
+    public void consumeData() throws IOException {
+        this.book = super.dataService.getSelectedBook();
+
         if(this.book == null){
             System.out.println("No book was selected");
             LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
@@ -82,7 +77,7 @@ public class BookViewController {
         book_title_label.setText(book.getTitle());
 
         author_label.setText(
-            "Autor: " + book.getAuthorString()
+                "Autor: " + book.getAuthorString()
         );
 
         Image img;
@@ -97,41 +92,35 @@ public class BookViewController {
         rating_label.setText(rating == null ? "Brak ocen" : rating.toString());
     }
 
-    public void handleCancelAction(ActionEvent e){
-        LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
+    public void handleCancelAction(ActionEvent e) throws IOException {
+        super.switchScene(SceneType.BOOK_LIST);
     }
 
-    public void handleRentAction(ActionEvent e){
-        //switching to rental view
-        LibraryApplication.getAppController().switchScene(SceneType.COPIES_VIEW);
+    public void handleRentAction(ActionEvent e) throws IOException {
+        super.switchScene(SceneType.COPIES_VIEW);
     }
 
-    public void handleShowReviewsAction(){
-        DataProvider.setSelectedBook(book);
-        LibraryApplication.getAppController().switchScene(SceneType.REVIEWS);
+    public void handleShowReviewsAction() throws IOException {
+        super.switchScene(SceneType.REVIEWS);
     }
 
     public void goBackAction(){
-        LibraryApplication.getAppController().back();
+        super.goBack();
     }
 
     public void goForwardAction(){
-        LibraryApplication.getAppController().forward();
+        super.goForward();
     }
 
-    public void mainPageButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST); 
+    public void mainPageButtonHandler() throws IOException {
+        super.switchScene(SceneType.BOOK_LIST);
     }
 
-    public void myRentalsButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW); 
+    public void myRentalsButtonHandler() throws IOException {
+        super.switchScene(SceneType.RENTALS_VIEW);
     }
 
-    public void changeTheme(ActionEvent e){
-        LibraryApplication.changeTheme(themeChange.getValue());
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
     }
-
-    public void LogOutAction(){
-        LibraryApplication.getAppController().logOut();
-    }
-}   
+}

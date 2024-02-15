@@ -1,8 +1,10 @@
 package agh.edu.pl.weedesign.library.models;
 
 import agh.edu.pl.weedesign.library.LibraryApplication;
+import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.helpers.Encryptor;
 import agh.edu.pl.weedesign.library.helpers.ValidCheck;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.EmployeeService;
 import agh.edu.pl.weedesign.library.services.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,18 @@ public class LoginModel {
     private ConfigurableApplicationContext springContext;
     private final ReaderService readerService;
     private final EmployeeService employeeService;
-    private Encryptor passwordEncryptor;
+    private DataService dataService;
+
 
     @Autowired
     public LoginModel(ConfigurableApplicationContext springContext, ReaderService userService, EmployeeService employeeService){
         this.springContext = springContext;
         this.readerService = userService;
         this.employeeService = employeeService;
+    }
+
+    public void setDataService(DataService dataService) {
+        this.dataService = dataService;
     }
 
     public ValidCheck login(String login, String userPassword, Boolean superUser){
@@ -32,9 +39,11 @@ public class LoginModel {
 
             String encryptedRealPassword = employeeService.getEmployeePasswordByEmail(login);
 
+            if(encryptedRealPassword == null || userPassword == null)
+                return new ValidCheck(false, "");
+
             if (Objects.equals(userPassword, encryptedRealPassword) ) {
                 System.out.println("Access granted");
-                LibraryApplication.setEmployee(this.employeeService.getEmployeeByEmail(login));
             }
 
         } catch (Exception e ){
@@ -48,9 +57,11 @@ public class LoginModel {
         try {
             String encryptedRealPassword = readerService.getReaderPasswordByEmail(login);
 
+            if(encryptedRealPassword == null || userPassword == null)
+                return new ValidCheck(false, "");
+
             if (Objects.equals(userPassword, encryptedRealPassword) ) {
                 System.out.println("Access granted");
-                LibraryApplication.setReader(this.readerService.findByEmail(login));
             }
 
         } catch (Exception e ){
@@ -59,11 +70,4 @@ public class LoginModel {
 
         return new ValidCheck(true, "");
     };
-
-    private void checkerGuard(ValidCheck check){
-        if (!check.isValid()){
-            throw new IllegalArgumentException(check.message());
-        }
-    }
-
 }

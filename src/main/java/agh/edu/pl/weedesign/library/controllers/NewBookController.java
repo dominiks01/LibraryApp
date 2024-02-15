@@ -1,6 +1,7 @@
 package agh.edu.pl.weedesign.library.controllers;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ import javafx.scene.control.TextField;
 
 
 @Controller
-public class NewBookController {
+public class NewBookController extends IController {
 
-    NewBookModel model;
+    private final NewBookModel model;
 
     @FXML
     private TextField book_number_text_field;
@@ -73,8 +74,8 @@ public class NewBookController {
         this.service = service;
     }
 
-    public void handleCancelAction(){
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL);
+    public void handleCancelAction() throws IOException {
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
 
     public void saveBookAction(){
@@ -90,6 +91,7 @@ public class NewBookController {
             this.model.setAuthorSecondName(author_surname_text_field.getText());
             this.model.setNoOfCopies(Integer.valueOf(no_of_copies_text_field.getText()));
             this.model.setCondition(condition_textfield.getText());
+
             this.model.addNewBook();
 
             System.out.println("Book added successfully");
@@ -103,12 +105,24 @@ public class NewBookController {
         }
     }
 
-    @FXML
-    public void initialize(){
+    public void goBackAction(){
+        super.goBack();
+    }
+
+    public void goForwardAction(){
+        super.goForward();
+    }
+
+    public void mainPageButtonHandler() throws IOException {
+        handleCancelAction();
+    }
+
+
+    @Override
+    public void consumeData(){
         ArrayList<Category> categoryList = (ArrayList<Category>) service.getCategories();
         for(Category i: categoryList)
             categories.getItems().add(i.getName());
-
     }
 
 }

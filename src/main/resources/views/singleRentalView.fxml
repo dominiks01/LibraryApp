@@ -1,96 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-
-<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.SingleRentalController">
+<BorderPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.SingleRentalController">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="543.0" prefWidth="646.0">
+      <Pane>
          <children>
-            <VBox layoutX="227.0" layoutY="197.0" prefHeight="200.0" prefWidth="145.0">
+            <VBox alignment="CENTER_LEFT" layoutX="110.0" layoutY="99.0" prefHeight="403.0" prefWidth="421.0" spacing="7.0">
                <children>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelRental" prefHeight="34.0" prefWidth="150.0" text="Zwróć" />
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addReviewAction" prefHeight="34.0" prefWidth="147.0" text="Dodaj opinie" />
-                  <Button mnemonicParsing="false" onAction="#backAction" prefHeight="34.0" prefWidth="145.0" text="Powrót" />
+                  <Label fx:id="titleText" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="458.0" text="Book Title">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="titleText1" alignment="TOP_LEFT" layoutX="10.0" layoutY="57.0" prefHeight="26.0" prefWidth="458.0" text="Copy ID">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="titleText11" alignment="TOP_LEFT" layoutX="10.0" layoutY="73.0" prefHeight="26.0" prefWidth="458.0" text="Book Condition">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="authorText" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="495.0" text="Book Author" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="employeeText" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="468.0" text="Employee">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="weekPriceText" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="460.0" text="Book Price Weekly">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="priceText" alignment="TOP_LEFT" prefHeight="46.0" prefWidth="448.0" text="Book Price">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="25.0" />
+                     </padding>
+                  </Label>
+                  <HBox spacing="25.0">
+                     <children>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelRental" prefHeight="34.0" prefWidth="400.0" style="-fx-background-color: red;" text="Return Book">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addReviewAction" prefHeight="34.0" prefWidth="400.0" text="Write a review">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <Text fx:id="titleText" layoutX="193.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="CENTER" wrappingWidth="213.04800033569336" />
-            <Text fx:id="authorText" layoutX="163.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="274.9610023498535" />
-            <Text fx:id="weekPriceText" layoutX="193.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WeekPrice" textAlignment="CENTER" wrappingWidth="213.04800033569336" />
-            <Text fx:id="priceText" layoutX="193.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" textAlignment="CENTER" wrappingWidth="213.04800033569336" />
-            <Text fx:id="employeeText" layoutX="193.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee" textAlignment="CENTER" wrappingWidth="213.04800033569336" />
          </children>
-      </AnchorPane>
+      </Pane>
    </center>
    <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="974.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
-               <children>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="13.0" />
-                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goBackAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&lt;">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="20.0" />
-                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&gt;">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="25.0" />
-                  <Button fx:id="mainPage" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="31.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Główny Panel">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="18.0" />
-                  <Button fx:id="myRentals" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="31.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="Moje Wypożyczenia" visible="false">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="370.0" />
-                  <ChoiceBox fx:id="themeChange" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="168.0">
-                     <HBox.margin>
-                        <Insets right="10.0" top="-1.5" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="16.0" />
-                  <Button fx:id="logOut" contentDisplay="BOTTOM" minHeight="30.0" mnemonicParsing="false" onAction="#LogOutAction" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Wyloguj się">
-                     <HBox.margin>
-                        <Insets top="1.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="14.0" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </HBox.margin>
-            </HBox>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button fx:id="myRentals" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="34.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="My Rentals">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
          </children>
-         <BorderPane.margin>
-            <Insets left="2.0" top="10.0" />
-         </BorderPane.margin>
       </HBox>
    </top>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <left>
+      <Pane>
+         <children>
+            <VBox alignment="CENTER" layoutY="-1.0" prefHeight="680.0" prefWidth="500.0">
+               <children>
+                  <ImageView fx:id="image_cover" cache="true" cacheHint="QUALITY" depthTest="ENABLE" fitHeight="630.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../default_book_cover_2015.jpg" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <VBox.margin>
+                        <Insets bottom="100.0" left="50.0" right="50.0" top="100.0" />
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" height="53.24" radius="23.9225" width="44.45" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
 </BorderPane>

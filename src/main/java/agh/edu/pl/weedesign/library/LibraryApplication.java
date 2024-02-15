@@ -1,84 +1,75 @@
 package agh.edu.pl.weedesign.library;
 
-import agh.edu.pl.weedesign.library.controllers.LibraryAppController;
+import agh.edu.pl.weedesign.library.controllers.IController;
+import agh.edu.pl.weedesign.library.controllers.MainController;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.employee.Employee;
 import agh.edu.pl.weedesign.library.entities.reader.Reader;
+import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-
-
+import org.springframework.stereotype.Controller;
 @SpringBootApplication
 public class LibraryApplication extends Application {
 	private Stage primaryStage;
-	private static LibraryAppController libraryAppController;
+	private static MainController mainController;
+	private static IController currentSceneController;
 	private static ConfigurableApplicationContext context;
 	private static Reader reader;
 	private static Book book;
 	private static Employee employee;
 	private static String theme = "Nord Dark";
 	private static ArrayList<Object> filterStrategy = null;
+	private static final SceneFactory factory = new SceneFactory();
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
-		Application.setUserAgentStylesheet(getClass().getResource("/themes/nord-dark.css").toExternalForm());
-
+	public void start(Stage primaryStage) throws IOException {
+		Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/themes/nord-dark.css")).toExternalForm());
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LibraryApplication.class);
 		builder.application().setWebApplicationType(WebApplicationType.NONE);
+
 		context = builder.run();
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Library App");
 
-		libraryAppController = new LibraryAppController(this.primaryStage, context);
-		libraryAppController.initWelcomeLayout();
+		mainController = new MainController(this.primaryStage, context);
+
+		FXMLLoader loader = factory.createScene(SceneType.LOGIN);
+        Parent root = Objects.requireNonNull(loader).load();
+
+		currentSceneController = loader.getController();
+		currentSceneController.setMainController(mainController);
+		mainController.setCurrentSceneController(currentSceneController);
+
+		primaryStage.setScene(new Scene(root));
+		primaryStage.show();
 	}
 
 	public static ConfigurableApplicationContext getAppContext(){
 		return context;
 	}
 
-	public static void switchScene(SceneType sceneType){
-		getAppController().switchScene(sceneType);
-	}
-
-	public static LibraryAppController getAppController(){
-		return libraryAppController;
-	}
-
-	public static Reader getReader(){
-		return reader;
-	}
-
-	public static void setReader(Reader r){
-		reader = r;
-	}
-
-	public static Employee getEmployee() {
-		return employee;
-	}
-
-	public static void setEmployee(Employee e) {
-		employee = e;
-	}
-
-	public static void setBook(Book b){
-		book = b; 
-	}
-
-	public static Book getBook(){
-		return book;
+	public static MainController getAppController(){
+		return mainController;
 	}
 
 	public static String getTheme(){

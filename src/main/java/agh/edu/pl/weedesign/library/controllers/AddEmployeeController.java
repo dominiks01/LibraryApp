@@ -54,11 +54,9 @@ public class AddEmployeeController {
     private ModelService service;
 
     private final ModelService modelService;
-    private final AuthController authController;
 
-    public AddEmployeeController(ModelService modelService, AuthController authController) {
+    public AddEmployeeController(ModelService modelService) {
         this.modelService = modelService;
-        this.authController = authController;
     }
     @FXML
     private void initialize() {
@@ -93,7 +91,7 @@ public class AddEmployeeController {
     }
 
     public void hopToNextScene(SceneType sceneType){
-        LibraryApplication.getAppController().switchScene(sceneType);
+//        LibraryApplication.getAppController().switchScene(sceneType);
     }
 
     public void checkerGuard(ValidCheck check){
@@ -103,6 +101,6 @@ public class AddEmployeeController {
     }
     @FXML
     private void handleCancelAction(){
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL);
+//        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL);
     }
 }

@@ -7,6 +7,7 @@ import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
 import agh.edu.pl.weedesign.library.helpers.Themes;
 import agh.edu.pl.weedesign.library.models.RentalModel;
+import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.ModelService;
 import agh.edu.pl.weedesign.library.services.RentalService;
@@ -14,19 +15,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import org.jboss.jandex.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.crypto.Mac;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class RentalsAcceptanceController {
+public class RentalsAcceptanceController extends IController {
 
     @FXML
     private TableView<Rental> rentalsTable;
@@ -46,60 +54,37 @@ public class RentalsAcceptanceController {
     @FXML
     private TableColumn<Rental, String> endDateColumn;
 
-     // Navbar controls 
-    @FXML
-    private Button mainPage; 
-
-    @FXML
-    private Button myRentals; 
-
-    @FXML
-    private Button logOut; 
-
-    @FXML 
-    private ChoiceBox<String> themeChange;
-
-
-
     private List<Rental> rentals;
-    private Rental selectedRental;
 
     private ModelService service;
     private BookListProcessor bookListProcessor;
 
-    private RentalModel rentalModel;
-    private RentalService rentalService;
+    private final SceneFactory factory = new SceneFactory();
 
     @Autowired
-    public RentalsAcceptanceController(ModelService service, BookListProcessor bookListProcessor, RentalModel rentalModel, RentalService rentalService){
+    public RentalsAcceptanceController(ModelService service){
         this.service = service;
-        this.bookListProcessor = bookListProcessor;
-        this.rentalModel = rentalModel;
-        this.rentalService = rentalService;
     }
 
-    @FXML
-    public void initialize(){
+    @Override
+    public void consumeData(){
         fetchRentalsData();
 
-        themeChange.getItems().addAll(Themes.getAllThemes());
-        themeChange.setOnAction(this::changeTheme);
-        themeChange.setValue(LibraryApplication.getTheme());
-
-        LibraryApplication.getAppController().resize(760, 440);
-
         titleColumn.setCellValueFactory(rentalValue -> new SimpleStringProperty(rentalValue.getValue().getBookCopy().getBook().getTitle()));
+
         authorColumn.setCellValueFactory(rentalValue -> {
-                String authors = "";
-                for(Author author : rentalValue.getValue().getBookCopy().getBook().getAuthors())
-                    authors += author.getName() + " " + author.getSurname() + "   ";
-                return new SimpleStringProperty(authors);
+            String authors = "";
+            for(Author author : rentalValue.getValue().getBookCopy().getBook().getAuthors())
+                authors += author.getName() + " " + author.getSurname() + "   ";
+            return new SimpleStringProperty(authors);
         });
+
         priceColumn.setCellValueFactory(rentalValue -> {
             if(rentalValue.getValue().getEnd_date() == null)
                 return new SimpleStringProperty(rentalValue.getValue().countPrice(LocalDateTime.now()) + " zł");
             return new SimpleStringProperty(rentalValue.getValue().getPrice() + " zł");
         });
+
         startDateColumn.setCellValueFactory(rentalValue -> new SimpleStringProperty(rentalValue.getValue().getStart_date().toLocalDate().toString()));
         endDateColumn.setCellValueFactory(rentalValue -> {
             LocalDateTime end = rentalValue.getValue().getEnd_date();
@@ -111,11 +96,39 @@ public class RentalsAcceptanceController {
         rentalsTable.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 if( getSelectedEntity() != null) {
-                    LibraryApplication.getAppController().saveData(getSelectedEntity());
-                    LibraryApplication.getAppController().switchScene(SceneType.ACCEPTANCE);
+                    try {
+                        super.dataService.setRental(getSelectedEntity());
+                        initialize_acceptance_view();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
+    }
+
+    public void initialize_acceptance_view() throws IOException {
+        FXMLLoader loader = factory.createScene(SceneType.ACCEPTANCE);
+
+        assert loader != null;
+        Parent root = loader.load();
+
+        IController currentSceneController =loader.getController();
+        currentSceneController.setDataService(this.dataService);
+        currentSceneController.consumeData();
+        currentSceneController.setMainController(super.getMainController());
+
+        Stage stage = new Stage();
+        stage.setTitle("My New Stage Title");
+        stage.setScene(new Scene(root, 300, 300));
+        stage.show();
+
+    }
+
+    @FXML
+    public void initialize(){
+
     }
 
     private void fetchRentalsData(){
@@ -123,37 +136,32 @@ public class RentalsAcceptanceController {
         rentalsTable.setItems(FXCollections.observableList(this.rentals));
     }
 
-    @FXML
-    private void toPanelView(ActionEvent actionEvent) {
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL);
-    }
 
     private Rental getSelectedEntity(){
         return rentalsTable.getSelectionModel().getSelectedItem();
     }
 
     public void goBackAction(){
-        LibraryApplication.getAppController().back();
+        super.goBack();
     }
 
     public void goForwardAction(){
-        LibraryApplication.getAppController().forward();
+        super.goForward();
     }
 
-    public void mainPageButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL); 
+    public void mainPageButtonHandler() throws IOException {
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
 
-    public void myRentalsButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW); 
+
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
     }
 
-    public void changeTheme(ActionEvent e){
-        LibraryApplication.changeTheme(themeChange.getValue());
-    }
-
-    public void LogOutAction(){
-        LibraryApplication.getAppController().logOut();
+    @Override
+    public void reload(){
+        rentals.clear();
+        consumeData();
     }
 
 }

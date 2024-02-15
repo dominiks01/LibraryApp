@@ -19,7 +19,7 @@ public class Recommender {
     private ModelService modelService;
 
     public Recommender(ModelService modelService){
-        this.reader = LibraryApplication.getReader();
+//        this.reader = LibraryApplication.getReader();
         this.modelService  = modelService;
     }
 

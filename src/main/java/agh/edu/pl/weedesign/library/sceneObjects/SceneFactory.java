@@ -8,13 +8,22 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 
-public class SceneFactory {
+public final class SceneFactory {
+
+    private static SceneFactory instance;
+
+    public static SceneFactory getInstance(){
+        if(instance == null)
+            instance = new SceneFactory();
+
+        return instance;
+    }
 
     private final String loginViewPath = "/views/loginView.fxml";
     private final String mainViewPath = "/views/mainView.fxml";
     private final String registrationViewPath = "/views/registerView.fxml";
     private final String welcomeViewPath = "/views/welcomeView.fxml";
-    private final String bookListViewPath = "/views/bookList.fxml";
+    private final String bookListViewPath = "/views/bookListTest.fxml";
     private final String bookViewPath = "/views/bookView.fxml";
     private final String newBookViewPath = "/views/newBookView.fxml";
     private final String bookCopiesViewPath = "/views/bookCopiesView.fxml";
@@ -29,7 +38,7 @@ public class SceneFactory {
     private final String singleRentalViewPath = "/views/singleRentalView.fxml";
     private final String acceptanceView = "/views/acceptanceView.fxml";
 
-    public Pane createScene(SceneType sceneType) {
+    public FXMLLoader createScene(SceneType sceneType) {
         try {
             switch (sceneType) {
                 case LOGIN -> {
@@ -97,12 +106,12 @@ public class SceneFactory {
         return null;
     }
 
-    private Pane loadScene(String path) throws IOException {
+    private FXMLLoader loadScene(String path) throws IOException {
         // load layout from FXML file
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(LibraryApplication.class.getResource(path));
         loader.setControllerFactory(LibraryApplication.getAppContext()::getBean);
-        return loader.load();
+        return loader;
     }
 
     

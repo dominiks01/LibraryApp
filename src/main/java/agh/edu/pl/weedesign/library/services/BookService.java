@@ -11,6 +11,10 @@ import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.entities.category.CategoryRepository;
 import agh.edu.pl.weedesign.library.entities.rental.RentalRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class BookService {
     private final RentalRepository rentalRepository;
@@ -45,5 +49,13 @@ public class BookService {
 
     public void addNewBook(Book book){
         this.bookRepository.save(book);
+    }
+
+    public List<Book> getBooks(){
+        return this.bookRepository.findAll();
+    }
+
+    public List<Category> getCategories(){
+        return this.categoryRepository.findAll();
     }
 }

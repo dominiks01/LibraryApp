@@ -1,5 +1,8 @@
 package agh.edu.pl.weedesign.library.controllers;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -14,9 +17,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
+
 @Controller
-public class AcceptanceController {
-    private final RentalsController rentalsController;
+public class AcceptanceController extends IController{
 
     @FXML
     private Text titleText;
@@ -24,47 +28,59 @@ public class AcceptanceController {
     @FXML
     private Text authorText;
 
-    private final ReviewService reviewService;
+    @FXML
+    private Button acceptRentalButton;
+
+    @FXML
+    private Button rejectRentalButton;
+
+    @FXML
+    private Button cancelButton;
+
     private Rental rental;
+
     private final RentalService rentalService;
-    private final ReviewRepository reviewRepository;
 
     @Autowired
-    public AcceptanceController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService){
-        this.reviewService = reviewService;
+    public AcceptanceController(RentalService rentalService){
         this.rentalService = rentalService;
-        this.rentalsController = rentalsController;
-        this.reviewRepository = reviewRepository;
+    }
+
+    @Override
+    public void consumeData(){
+        this.rental = super.dataService.getRental();
+        this.setValues();
     }
 
     @FXML
     public void initialize(){
-        this.rental = (Rental) LibraryApplication.getAppController().getData();
-
-        this.setValues();
     }
 
     private void setValues(){
         this.titleText.setText(this.rental.getBookCopy().getBook().getTitle());
-        String authors = "";
+
+        StringBuilder authors = new StringBuilder();
         for(Author author : this.rental.getBookCopy().getBook().getAuthors())
-            authors += author.getName() + " " + author.getSurname() + "   ";
-        this.authorText.setText(authors);
+            authors.append(author.getName()).append(" ").append(author.getSurname()).append(", ");
+
+        this.authorText.setText(authors.toString());
     }
 
-    public void acceptRental(ActionEvent e){
-        this.rental.setEmployee(LibraryApplication.getEmployee());
+    public void acceptRental(ActionEvent e) throws IOException {
+        this.rental.setEmployee(super.dataService.getEmployee());
         this.rentalService.updateRental(this.rental);
-        this.backAction(null);
+
+        super.getMainController().reload();
+        ((Stage) acceptRentalButton.getScene().getWindow()).close();
     }
 
     public void rejectRental(ActionEvent e){
         this.rentalService.removeRental(this.rental);
-        this.backAction(null);
+        ((Stage) rejectRentalButton.getScene().getWindow()).close();
     }
 
     public void backAction(ActionEvent e){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_ACCEPTANCE);
+        ((Stage) cancelButton.getScene().getWindow()).close();
     }
 
 }

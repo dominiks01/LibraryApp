@@ -122,8 +122,6 @@ public class Book {
         return this.authors.stream().map(Author::getSurname).collect(Collectors.joining());
     }
 
-
-
     public void setCategory(Category category){
         this.category = category;
     }

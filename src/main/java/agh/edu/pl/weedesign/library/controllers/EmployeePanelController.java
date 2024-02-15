@@ -11,8 +11,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Text;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
+
 @Controller
-public class EmployeePanelController {
+public class EmployeePanelController extends IController{
     public Text errorMsg;
     @FXML
     private Button addEmployee;
@@ -37,14 +39,11 @@ public class EmployeePanelController {
 
      @FXML
      public void initialize(){
-        themeChange.getItems().addAll(Themes.getAllThemes());
-        themeChange.setOnAction(this::changeTheme);
-        themeChange.setValue(LibraryApplication.getTheme());
     }
 
-    public void handleAddNewBookAction(ActionEvent actionEvent) {
-        if (LibraryApplication.getEmployee().getAccessLevel().ordinal() >= AccessLevel.EMPLOYEE.ordinal()){
-            LibraryApplication.getAppController().switchScene(SceneType.NEW_BOOK_VIEW);
+    public void handleAddNewBookAction(ActionEvent actionEvent) throws IOException {
+        if (super.dataService.getEmployee().getAccessLevel().ordinal() >= AccessLevel.EMPLOYEE.ordinal()){
+            super.switchScene(SceneType.NEW_BOOK_VIEW);
         }
         else{
             errorMsg.setText("Nie masz uprawnień, aby stworzyć nową książkę!");
@@ -52,8 +51,8 @@ public class EmployeePanelController {
     }
 
     public void handleAddEmployeeAction(ActionEvent actionEvent) {
-        if (LibraryApplication.getEmployee().getAccessLevel().ordinal() >= AccessLevel.MANAGER.ordinal()){
-            LibraryApplication.getAppController().switchScene(SceneType.ADD_EMPLOYEE);
+        if (super.dataService.getEmployee().getAccessLevel().ordinal() >= AccessLevel.MANAGER.ordinal()){
+//            LibraryApplication.getAppController().switchScene(SceneType.ADD_EMPLOYEE);
         }
         else{
             errorMsg.setText("Nie masz uprawnień, aby dodać nowego pracownika!");
@@ -61,36 +60,28 @@ public class EmployeePanelController {
     }
 
     public void showStats(ActionEvent actionEvent) {
-        LibraryApplication.getAppController().switchScene(SceneType.STATS_VIEW);
+//        LibraryApplication.getAppController().switchScene(SceneType.STATS_VIEW);
     }
 
-    public void acceptRental(ActionEvent actionEvent) {
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_ACCEPTANCE);
+    public void acceptRental(ActionEvent actionEvent) throws IOException {
+        super.switchScene(SceneType.RENTALS_ACCEPTANCE);
     }
 
-    public void logoutAction(ActionEvent e){
-        LibraryApplication.setEmployee(null);
-        LibraryApplication.getAppController().switchScene(SceneType.WELCOME);
+    public void LogOutAction(ActionEvent e) throws IOException {
+        super.dataService.setEmployee(null);
+        super.switchScene(SceneType.LOGIN);
     }
 
     public void goBackAction(){
-        LibraryApplication.getAppController().back();
+        super.goBack();
     }
 
     public void goForwardAction(){
-        LibraryApplication.getAppController().forward();
+        super.goBack();
     }
 
     public void mainPageButtonHandler(){
-        //pass
-    }
-
-    public void myRentalsButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW); 
-    }
-
-    public void changeTheme(ActionEvent e){
-        LibraryApplication.changeTheme(themeChange.getValue());
+        return;
     }
 
 }

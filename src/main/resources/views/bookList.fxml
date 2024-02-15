@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,25 +17,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import agh.edu.pl.weedesign.library.helpers.SearchStrategy?>
-<?import agh.edu.pl.weedesign.library.helpers.SortOrder?>
-
-<?import agh.edu.pl.weedesign.library.helpers.FilterStrategy?>
+<!--<?import agh.edu.pl.weedesign.library.helpers.SearchStrategy?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.SortOrder?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.FilterStrategy?>-->
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.BookListController">
    <top>
       <HBox prefHeight="42.0" prefWidth="974.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="974.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="985.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
                <children>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="13.0" />
-                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goBackAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&lt;">
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="5.0" />
+                  <Button maxHeight="32.0" minHeight="32.0" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="20.0" />
-                  <Button maxHeight="31.0" minHeight="31.0" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="31.0" style="-fx-background-radius: 2;" text="&gt;">
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="5.0" />
+                  <Button maxHeight="32.0" minHeight="32.0" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="32.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -44,37 +42,31 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="25.0" />
-                  <Button fx:id="mainPage" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="31.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Strona Główna">
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="9.0" />
+                  <Button fx:id="mainPage" maxHeight="32.0" minHeight="32.0" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="32.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Strona Główna">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="18.0" />
-                  <Button fx:id="myRentals" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="31.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="Moje Wypożyczenia">
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="1.0" />
+                  <Button fx:id="myRentals" maxHeight="32.0" minHeight="32.0" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="32.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="Moje Wypożyczenia">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="4.0" />
                      </HBox.margin>
                   </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="370.0" />
-                  <ChoiceBox fx:id="themeChange" maxHeight="31.0" minHeight="35.0" prefHeight="35.0" prefWidth="168.0">
-                     <HBox.margin>
-                        <Insets right="10.0" top="-1.5" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="16.0" />
-                  <Button fx:id="logOut" contentDisplay="BOTTOM" minHeight="30.0" mnemonicParsing="false" onAction="#LogOutAction" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Wyloguj się">
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="477.0" />
+                  <Button fx:id="logOut" contentDisplay="BOTTOM" minHeight="32.0" mnemonicParsing="false" onAction="#LogOutAction" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Wyloguj się">
                      <HBox.margin>
                         <Insets top="1.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="14.0" />
+                  <Label contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="5.0" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -125,9 +117,9 @@
                         <ComboBox fx:id="searchStrategyMenu" prefWidth="150.0">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <SearchStrategy fx:value="NAME"/>
-                                 <SearchStrategy fx:value="SURNAME"/>
-                                 <SearchStrategy fx:value="TITLE"/>
+<!--                                 <SearchStrategy fx:value="NAME"/>-->
+<!--                                 <SearchStrategy fx:value="SURNAME"/>-->
+<!--                                 <SearchStrategy fx:value="TITLE"/>-->
                               </FXCollections>
                            </items>
                         </ComboBox>
@@ -146,7 +138,7 @@
                         <ComboBox fx:id="sortStrategyMenu" prefWidth="150.0">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <SearchStrategy fx:value="TITLE"/>
+<!--                                 <SearchStrategy fx:value="TITLE"/>-->
                               </FXCollections>
                            </items>
                            <VBox.margin>
@@ -161,8 +153,8 @@
                         <ComboBox fx:id="sortOrderMenu" prefWidth="150.0">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <SortOrder fx:value="DESCENDING"/>
-                                 <SortOrder fx:value="ASCENDING"/>
+<!--                                 <SortOrder fx:value="DESCENDING"/>-->
+<!--                                 <SortOrder fx:value="ASCENDING"/>-->
                               </FXCollections>
                            </items>
                         </ComboBox>
@@ -181,7 +173,7 @@
                         <ComboBox fx:id="filterStrategyMenu" onAction="#setFilteringMenuContent" prefWidth="150.0">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <FilterStrategy fx:value="CATEGORY"/>
+<!--                                 <FilterStrategy fx:value="CATEGORY"/>-->
                               </FXCollections>
                            </items>
                            <VBox.margin>

@@ -34,7 +34,7 @@ public class RentalModel {
         Rental rental = new Rental(LocalDateTime.now());
 
         rental.setBookCopy(bookCopy);
-        rental.setReader(LibraryApplication.getReader());
+//        rental.setReader(LibraryApplication.getReader());
 
         rentalService.addNewRental(rental);
     }

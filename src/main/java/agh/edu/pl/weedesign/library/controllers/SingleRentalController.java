@@ -18,45 +18,39 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-public class SingleRentalController {
+public class SingleRentalController extends IController {
     private final RentalsController rentalsController;
 
     @FXML
-    private Text titleText;
+    private Label titleText;
     @FXML
-    private Text authorText;
+    private Label authorText;
     @FXML
-    private Text weekPriceText;
+    private Label weekPriceText;
     @FXML
-    private Text priceText;
+    private Label priceText;
     @FXML
-    private Text employeeText;
+    private Label employeeText;
     @FXML
     private Button cancelButton;
     @FXML
     private Button addButton;
 
-    // Navbar controls 
-     @FXML
-     private Button mainPage; 
- 
-     @FXML
-     private Button myRentals; 
- 
-     @FXML
-     private Button logOut; 
- 
-     @FXML 
-     private ChoiceBox<String> themeChange;
+    @FXML
+    private ImageView image_cover;
 
     private final ReviewService reviewService;
     private Rental rental;
@@ -74,14 +68,24 @@ public class SingleRentalController {
         this.service = service;
     }
 
+    @Override
+    public void consumeData(){
+        this.rental = rentalsController.getSelectedRental();
+
+        Image img;
+
+        try {
+            img = new Image("" + this.rental.getBookCopy().getBook().getCoverUrl() + "");
+            image_cover.setImage(img);
+        } catch (Exception e){
+            System.out.println("Cover not found");
+        }
+
+        this.setValues();
+    }
+
     @FXML
     public void initialize(){
-        themeChange.getItems().addAll(Themes.getAllThemes());
-        themeChange.setOnAction(this::changeTheme);
-        themeChange.setValue(LibraryApplication.getTheme());
-
-        this.rental = rentalsController.getSelectedRental();
-        this.setValues();
     }
 
     private void setValues(){
@@ -105,18 +109,21 @@ public class SingleRentalController {
     }
 
     @FXML
-    private void cancelRental(ActionEvent event){
+    private void cancelRental(ActionEvent event) throws IOException {
         informAboutReturnedBook();
 
         if(this.rental.getEmployee() == null){
             //jezeli nie bylo akceptacji, to po prostu usuwam to wypozyczenie
             this.rentalService.removeRental(this.rental);
-            backAction(null);
             return;
         }
         this.rental.setEnd_date(LocalDateTime.now());
         this.rentalService.updateRental(this.rental);
         this.cancelButton.setVisible(false);
+
+        super.getMainController().reload();
+        ((Stage)cancelButton.getScene().getWindow()).close();
+
     }
 
     private void informAboutReturnedBook(){
@@ -134,37 +141,29 @@ public class SingleRentalController {
     }
 
     @FXML
-    private void addReviewAction(ActionEvent event){
+    private void addReviewAction(ActionEvent event) throws IOException {
         LibraryApplication.getAppController().switchScene(SceneType.ADD_REVIEW);
     }
 
-    @FXML
-    private void backAction(ActionEvent event){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW);
-    }
 
     public void goBackAction(){
-        LibraryApplication.getAppController().back();
+        super.goBack();
     }
 
     public void goForwardAction(){
-        LibraryApplication.getAppController().forward();
+        super.goForward();
     }
 
-    public void mainPageButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL); 
+    public void mainPageButtonHandler() throws IOException {
+        super.switchScene(SceneType.BOOK_LIST);
     }
 
-    public void myRentalsButtonHandler(){
-        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW); 
+    public void myRentalsButtonHandler() throws IOException {
+        super.switchScene(SceneType.RENTALS_VIEW);
     }
 
-    public void changeTheme(ActionEvent e){
-        LibraryApplication.changeTheme(themeChange.getValue());
-    }
-
-    public void LogOutAction() {
-        LibraryApplication.getAppController().logOut();
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
     }
 
 }
