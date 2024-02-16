@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="950.0" prefWidth="1390.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.EmployeePanelController">
+   <top>
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
+         <children>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Panel">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="addEmployee11" mnemonicParsing="false" onAction="#handleAddEmployeeAction" prefWidth="300.0" text="Add Employee">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="addNewBook11" mnemonicParsing="false" onAction="#handleAddNewBookAction" prefHeight="34.0" prefWidth="300.0" text="Add New Book">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="showStatsButton11" mnemonicParsing="false" onAction="#showStats" prefHeight="34.0" prefWidth="300.0" text="Stats">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#acceptRental" prefHeight="34.0" prefWidth="300.0" text="Rentals Acceptance Panel" />
+            <Text fx:id="errorMsg11" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="188.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="100.0" right="100.0" />
+         </padding>
+      </VBox>
+   </center>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

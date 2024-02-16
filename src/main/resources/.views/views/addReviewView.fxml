@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.Integer?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.AddReviewController">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="587.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="-3.0" layoutY="-12.0" prefHeight="550.0" prefWidth="582.0" spacing="5.0">
+               <children>
+                  <Label text="Rating">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="choiceBox" prefHeight="34.0" prefWidth="174.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <Integer fx:value="1" />
+                           <Integer fx:value="2" />
+                           <Integer fx:value="3" />
+                           <Integer fx:value="4" />
+                           <Integer fx:value="5" />
+                           <Integer fx:value="6" />
+                           <Integer fx:value="7" />
+                           <Integer fx:value="8" />
+                           <Integer fx:value="9" />
+                           <Integer fx:value="10" />
+                        </FXCollections>
+                     </items>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+                  <Label text="Write your review">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="commentArea" prefHeight="211.0" prefWidth="562.0">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextArea>
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAddReviewAction" prefHeight="34.0" prefWidth="129.0" text="Add review" />
+                        <Button mnemonicParsing="false" onAction="#handleCancelAction" prefHeight="34.0" prefWidth="118.0" text="Cancel" />
+                     </children>
+                  </HBox>
+                  <Text fx:id="errorMsg" strokeType="OUTSIDE" strokeWidth="0.0" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
+         <children>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button fx:id="myRentals" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="34.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="My Rentals">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <Pane>
+         <children>
+            <VBox alignment="CENTER" layoutY="-1.0" prefHeight="680.0" prefWidth="500.0">
+               <children>
+                  <ImageView fx:id="image_cover" cache="true" cacheHint="SPEED" depthTest="ENABLE" fitHeight="630.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../default_book_cover_2015.jpg" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <VBox.margin>
+                        <Insets bottom="100.0" left="50.0" right="50.0" top="100.0" />
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow height="43.97" radius="20.0175" width="38.1" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>

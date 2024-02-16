@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane prefHeight="950.0" prefWidth="1390.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.BookViewController">
+   <center>
+      <Pane>
+         <children>
+            <VBox prefHeight="848.0" prefWidth="702.0">
+               <children>
+                   <Button defaultButton="true" mnemonicParsing="false" onAction="#handleShowReviewsAction" prefHeight="36.0" prefWidth="581.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: rgba(128,26,0,0.82);" text="Show Reviews" textAlignment="CENTER" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="author_label" prefHeight="26.0" prefWidth="310.0" text="Author: " underline="true">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="book_title_label" contentDisplay="CENTER" prefHeight="26.0" prefWidth="522.0" text="Book Title Book Title Book Title&#10;&#10;" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="rating_label" prefHeight="26.0" prefWidth="306.0" text="Ratings:">
+                     <font>
+                        <Font name="DejaVuMathTeXGyre-Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextFlow nodeOrientation="LEFT_TO_RIGHT" prefHeight="306.0" prefWidth="574.0">
+                     <children>
+                        <Label fx:id="description_label" alignment="TOP_LEFT" maxHeight="1000.0" minHeight="442.0" prefHeight="443.0" prefWidth="569.0" text="description" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets top="3.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </TextFlow>
+                  <HBox alignment="CENTER" spacing="30.0">
+                     <children>
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#handleRentAction" prefHeight="30.0" prefWidth="145.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: green;" text="Rent Book" textAlignment="CENTER" textFill="WHITE" />
+                        <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancelAction" prefHeight="30.0" prefWidth="145.0" style="-fx-background-color: red; -fx-border-radius: 5; -fx-background-radius: 5;" text="Cancel" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;" BorderPane.alignment="CENTER">
+         <children>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button fx:id="myRentals" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="34.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="My Rentals">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <Pane BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" layoutY="-1.0" prefHeight="680.0" prefWidth="500.0">
+               <children>
+                  <ImageView fx:id="image_cover" cache="true" cacheHint="SPEED" depthTest="ENABLE" fitHeight="630.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@./../default_book_cover_2015.jpg" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <VBox.margin>
+                        <Insets bottom="100.0" left="50.0" right="50.0" top="100.0" />
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow height="130.92" radius="65.32499999999999" width="132.38" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <Pane maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

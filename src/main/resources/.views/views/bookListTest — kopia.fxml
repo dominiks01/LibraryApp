@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--<?import agh.edu.pl.weedesign.library.helpers.SearchStrategy?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.SortOrder?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.FilterStrategy?>-->
+
+<BorderPane minWidth="550.0" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.BookListController">
+   <top>
+      <HBox accessibleRole="MENU" cacheShape="false" centerShape="false" maxHeight="-Infinity" maxWidth="2000.0" minHeight="-Infinity" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" scaleShape="false" snapToPixel="false" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;" BorderPane.alignment="CENTER">
+         <children>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button fx:id="myRentals" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#myRentalsButtonHandler" prefHeight="34.0" prefWidth="160.0" style="-fx-background-radius: 2;" text="My Rentals">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane fitToWidth="true">
+         <content>
+            <VBox fx:id="mainScrollPaneVBox" accessibleRole="TITLED_PANE" cache="true" cacheHint="SPEED" fillWidth="false">
+               <children>
+                  <Label fx:id="popularBooksLabel" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" text="Popular Books">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane fx:id="popularBooksHBox" hbarPolicy="NEVER" maxHeight="-Infinity" minHeight="-Infinity" pannable="true" vbarPolicy="NEVER">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ScrollPane>
+                                 <content>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../default_book_cover_2015.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" right="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </ScrollPane>
+                  <Label fx:id="recommendedBooksLabel" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" text="Recommended For you">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane fx:id="recommendedBooksHBox" hbarPolicy="NEVER" minHeight="-Infinity" pannable="true" vbarPolicy="NEVER">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <HBox prefHeight="180.0" prefWidth="1120.0" spacing="5.0">
+                                 <children>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <ImageView fitHeight="180.0" fitWidth="122.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../default_book_cover_2015.jpg" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </AnchorPane>
+                     </content>
+                     <VBox.margin>
+                        <Insets right="5.0" />
+                     </VBox.margin>
+                  </ScrollPane>
+                  <Label fx:id="allBooksLabel" layoutX="10.0" layoutY="217.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" text="All Books">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane fx:id="mainPaneScroll" fitToHeight="true" fitToWidth="true" prefWidth="5000.0">
+                     <content>
+                        <TilePane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+         </content>
+         <BorderPane.margin>
+            <Insets bottom="5.0" right="5.0" />
+         </BorderPane.margin>
+      </ScrollPane>
+   </center>
+   <left>
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="10000.0" maxWidth="10000.0" minWidth="100.0" prefHeight="848.0" prefWidth="315.0" vbarPolicy="NEVER">
+        <content>
+          <AnchorPane maxHeight="3000.0" minHeight="0.0" minWidth="0.0" prefHeight="836.0" prefWidth="174.0">
+               <children>
+                  <VBox layoutY="4.0" maxHeight="2000.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="839.0">
+                     <children>
+                        <VBox prefHeight="127.0" prefWidth="300.0">
+                           <children>
+                              <Label maxWidth="5000.0" prefHeight="35.0" prefWidth="200.0" text="LibraryApp / Book List">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="36.0" prefWidth="500.0" text="Clear Filters">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <CheckBox fx:id="onlyAvailableCheckbox" graphicTextGap="0.0" mnemonicParsing="false" onMouseClicked="#availableOnlyCheckboxAction" text="Available only">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </CheckBox>
+                              <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="202.0" text="&gt;Category">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <ScrollPane hbarPolicy="NEVER" maxHeight="500.0" prefHeight="500.0" prefWidth="234.0">
+                           <content>
+                              <AnchorPane maxHeight="200.0">
+                                 <children>
+                                    <VBox fx:id="categoriesVBox" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ScrollPane>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </BorderPane.margin>
+      </ScrollPane>
+   </left>
+   <bottom>
+      <Pane maxHeight="0.0" maxWidth="0.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <Pane maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

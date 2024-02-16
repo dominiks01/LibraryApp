@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="900.0" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.StatsController">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true">
+         <content>
+            <AnchorPane>
+               <children>
+                  <GridPane prefWidth="1200.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="278.0" minHeight="500.0" prefHeight="255.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="292.0" minHeight="500.0" prefHeight="600.0" valignment="TOP" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="232.0" minHeight="500.0" prefHeight="400.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="100.0" minHeight="500.0" prefHeight="400.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="500.0" prefHeight="400.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statystyki">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="readersText" strokeType="OUTSIDE" strokeWidth="0.0" text="readers" textAlignment="CENTER" wrappingWidth="281.6767578125" />
+                              <Text fx:id="employeesText" strokeType="OUTSIDE" strokeWidth="0.0" text="employees" textAlignment="CENTER" wrappingWidth="234.94140625" />
+                              <Text fx:id="booksText" strokeType="OUTSIDE" strokeWidth="0.0" text="books" textAlignment="CENTER" wrappingWidth="242.46044921875" />
+                           </children>
+                        </VBox>
+                        <PieChart fx:id="sexPlot" prefHeight="600.0" prefWidth="650.0" title="Płeć czytelników" GridPane.columnIndex="1" />
+                        <BarChart fx:id="freqBookPlot" prefHeight="600.0" prefWidth="650.0" title="Najczęściej wypożyczane książki" GridPane.rowIndex="1">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="freqCategoryPlot" prefHeight="232.0" prefWidth="650.0" title="Najczęściej wypożyczane kategorie" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="rentedBooksPlot" prefHeight="650.0" prefWidth="600.0" title="Książki wypożyczone" GridPane.rowIndex="4">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <LineChart fx:id="incomePlot" prefHeight="650.0" title="Przychody" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="rentalPlot" prefHeight="650.0" prefWidth="500.0" title="Wypożyczenia" GridPane.rowIndex="2">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                         <BarChart fx:id="bookPlot" prefHeight="650.0" prefWidth="478.0" title="Liczba tytułów w kategoriach" GridPane.rowIndex="3">
+                             <xAxis>
+                                 <CategoryAxis side="BOTTOM" />
+                             </xAxis>
+                             <yAxis>
+                                 <NumberAxis side="LEFT" />
+                             </yAxis>
+                         </BarChart>
+                        <BarChart fx:id="freqReaderPlot" prefHeight="650.0" title="Najaktywniejsi czytelnicy" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+            </AnchorPane>
+         </content>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </ScrollPane>
+   </center>
+   <top>
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;">
+         <children>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="7.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBackAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&lt;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+            <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goForwardAction" prefHeight="34.0" prefWidth="34.0" style="-fx-background-radius: 2;" text="&gt;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
+            <Button alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="5.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>
