@@ -81,8 +81,6 @@ public class NewBookController extends SubController {
 
     public void saveBookAction(){
         try {
-
-            // TODO kategorie! 
             this.model.setTitle(title_text_field.getText());
             this.model.setDescription(book_description_text_area.getText());
             this.model.setPageCount(Integer.valueOf(page_count_text_field.getText()));

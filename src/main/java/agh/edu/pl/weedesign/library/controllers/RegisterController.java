@@ -73,11 +73,6 @@ public class RegisterController extends SubController {
 
     @FXML
     private void handleRegisterAction(ActionEvent event) throws IOException {
-
-        // disabling button for security reasons
-        registerButton.setDisable(true);
-        cancelButton.setDisable(true);
-        
         try {
             registerModel.setName(nameField.getText());
             registerModel.setSurname(surnameField.getText());
@@ -98,13 +93,8 @@ public class RegisterController extends SubController {
             MessageLabel.setText(e.getMessage());
             MessageLabel.setVisible(true);
             return;
-        } finally {
-            registerButton.setDisable(false);
-            cancelButton.setDisable(false);
         }
-
         super.switchScene(SceneType.LOGIN);
-
     }
 
     @FXML

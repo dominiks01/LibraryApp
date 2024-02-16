@@ -4,13 +4,11 @@ public enum SceneType {
     MAIN,
     LOGIN,
     REGISTER,
-    WELCOME,
     BOOK_LIST,
     BOOK_VIEW,
     NEW_BOOK_VIEW,
     COPIES_VIEW,
     RENTALS_VIEW,
-    START_VIEW,
     REVIEWS,
     EMPLOYEE_PANEL,
     ADD_REVIEW,
@@ -18,5 +16,6 @@ public enum SceneType {
     STATS_VIEW,
     RENTALS_ACCEPTANCE,
     SINGLE_RENTAL,
-    ACCEPTANCE
+    ACCEPTANCE,
+    SETTINGS
 }

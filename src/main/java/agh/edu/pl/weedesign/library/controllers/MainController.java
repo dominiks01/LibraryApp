@@ -95,10 +95,6 @@ public class MainController {
         }
     }
 
-    public void reload() throws IOException {
-        this.currentSceneController.reinitialize();
-    }
-
 
     public void logOut() throws IOException {
         switchScene(SceneType.LOGIN);

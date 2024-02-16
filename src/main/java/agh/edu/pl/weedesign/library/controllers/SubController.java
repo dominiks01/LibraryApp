@@ -28,17 +28,6 @@ public class SubController {
         this.mainController.switchScene(sceneType);
     }
 
-    public void reinitialize(){
-
-    }
-
-
-    public void consumeData() throws IOException {
-    }
-
-    protected void reload() throws IOException {
-        this.mainController.reload();
-    }
 
     protected void logOutAction() throws IOException {
         this.mainController.logOut();
@@ -47,6 +36,8 @@ public class SubController {
     protected void goBack(){
         this.mainController.back();
     }
+
+    public void reload(){}
 
     protected void goForward(){
         this.mainController.forward();

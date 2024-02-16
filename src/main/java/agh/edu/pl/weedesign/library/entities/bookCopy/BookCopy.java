@@ -5,8 +5,6 @@ import javax.persistence.*;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +13,7 @@ public class BookCopy {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int week_unit_price;
+    private int weekUnitPrice;
 
     private String condition;
 
@@ -29,7 +27,7 @@ public class BookCopy {
     public BookCopy(){};
 
     public BookCopy(int week_unit_price, String condition){
-        this.week_unit_price = week_unit_price;
+        this.weekUnitPrice = week_unit_price;
         this.condition = condition;
     }
 
@@ -38,12 +36,12 @@ public class BookCopy {
         return id;
     }
 
-    public int getWeek_unit_price() {
-        return week_unit_price;
+    public int getWeekUnitPrice() {
+        return weekUnitPrice;
     }
 
-    public void setWeek_unit_price(int week_unit_price) {
-        this.week_unit_price = week_unit_price;
+    public void setWeekUnitPrice(int week_unit_price) {
+        this.weekUnitPrice = week_unit_price;
     }
 
     public String getCondition() {

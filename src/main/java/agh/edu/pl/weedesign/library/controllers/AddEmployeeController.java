@@ -54,7 +54,7 @@ public class AddEmployeeController extends SubController {
     private final NewEmployeeModel modelService;
 
     @Autowired
-    public AddEmployeeController(NewEmployeeModel modelService, DataService dataService, MainController mainController) {
+    public AddEmployeeController(NewEmployeeModel modelService, DataService dataService) {
         super(dataService);
         this.modelService = modelService;
     }

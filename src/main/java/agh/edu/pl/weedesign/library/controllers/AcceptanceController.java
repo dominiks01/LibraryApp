@@ -44,7 +44,6 @@ public class AcceptanceController extends SubController {
         this.rentalService = rentalService;
     }
 
-
     @FXML
     public void initialize(){
         this.rental = super.dataService.getRental();
@@ -65,7 +64,6 @@ public class AcceptanceController extends SubController {
         this.rental.setEmployee(super.dataService.getEmployee());
         this.rentalService.updateRental(this.rental);
 
-        super.reload();
         ((Stage) acceptRentalButton.getScene().getWindow()).close();
     }
 

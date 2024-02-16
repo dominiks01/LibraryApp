@@ -25,46 +25,39 @@ import java.time.LocalDateTime;
 
 @Controller
 public class AddReviewController extends SubController {
-    private final RentalsController rentalsController;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button addReviewButton;
     @FXML
     private TextArea commentArea;
+
     @FXML
     private ChoiceBox<Integer> choiceBox;
+
     @FXML
     private Label bookTitle;
+
     @FXML
     private Text errorMsg;
+
     private final ReviewService reviewService;
     private Rental rental;
     private final RentalService rentalService;
-    private final ReviewRepository reviewRepository;
 
     @FXML
-    public ImageView image_cover;
+    private ImageView image_cover;
 
     @Autowired
-    public AddReviewController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService, DataService dataService, MainController mainController){
+    public AddReviewController(ReviewService reviewService, RentalService rentalService, DataService dataService){
         super(dataService);
         this.reviewService = reviewService;
         this.rentalService = rentalService;
-        this.rentalsController = rentalsController;
-        this.reviewRepository = reviewRepository;
     }
-
 
     @FXML
     public void initialize(){
-        this.rental = dataService.getRental();
-        System.out.println(this.rental.getBookCopy().getBook().getCoverUrl());
-
+        this.rental = super.dataService.getRental();
         Image img;
 
         try {
-            img = new Image(this.rental.getBookCopy().getBook().getCoverUrl());
+            img = new Image("" + super.dataService.getSelectedBook().getCoverUrl() + "");
             image_cover.setImage(img);
         } catch (Exception e){
             System.out.println("Cover not found");
@@ -73,7 +66,7 @@ public class AddReviewController extends SubController {
     @FXML
     private void handleAddReviewAction(ActionEvent event) throws IOException {
         if (this.choiceBox.getValue() == null){
-            this.errorMsg.setText("Należy wybrać ocenę!");
+            this.errorMsg.setText("You must pick rating!");
             System.out.println("rate is null");
             return;
         }
@@ -82,8 +75,8 @@ public class AddReviewController extends SubController {
         Review review = new Review(rating, comment, LocalDateTime.now(), rental);
         saveReview(review);
     }
-    @FXML
-    private void handleCancelAction(ActionEvent event) throws IOException {
+
+    public void handleCancelAction(ActionEvent event) throws IOException {
         super.switchScene(SceneType.SINGLE_RENTAL);
     }
 

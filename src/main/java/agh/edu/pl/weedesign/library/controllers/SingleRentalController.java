@@ -1,10 +1,9 @@
 package agh.edu.pl.weedesign.library.controllers;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
-import agh.edu.pl.weedesign.library.entities.author.Author;
+import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.entities.reservation.Reservation;
-import agh.edu.pl.weedesign.library.entities.review.ReviewRepository;
+import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.*;
 import javafx.event.ActionEvent;
@@ -22,7 +21,6 @@ import java.util.List;
 
 @Controller
 public class SingleRentalController extends SubController {
-    private final RentalsController rentalsController;
 
     @FXML
     private Label titleText;
@@ -42,31 +40,27 @@ public class SingleRentalController extends SubController {
     @FXML
     private ImageView image_cover;
 
-    private final ReviewService reviewService;
     private Rental rental;
-    private final RentalService rentalService;
-    private final ReviewRepository reviewRepository;
-    private ModelService service;
+    private Book rentalBook;
+
+    private final RentalModel rentalModel;
 
 
     @Autowired
-    public SingleRentalController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService, ModelService service, DataService dataService, MainController mainController){
+    public SingleRentalController(RentalModel rentalModel, DataService dataService){
         super(dataService);
-        this.reviewService = reviewService;
-        this.rentalService = rentalService;
-        this.rentalsController = rentalsController;
-        this.reviewRepository = reviewRepository;
-        this.service = service;
+        this.rentalModel = rentalModel;
     }
 
     @FXML
     public void initialize(){
-        this.rental = rentalsController.getSelectedRental();
+        this.rental = dataService.getRental();
+        this.rentalBook = rental.getBookCopy().getBook();
 
         Image img;
 
         try {
-            img = new Image("" + this.rental.getBookCopy().getBook().getCoverUrl() + "");
+            img = new Image(this.rental.getBookCopy().getBook().getCoverUrl());
             image_cover.setImage(img);
         } catch (Exception e){
             System.out.println("Cover not found");
@@ -76,13 +70,11 @@ public class SingleRentalController extends SubController {
     }
 
     private void setValues(){
-        this.titleText.setText(this.rental.getBookCopy().getBook().getTitle());
-        String authors = "";
-        for(Author author : this.rental.getBookCopy().getBook().getAuthors())
-            authors += author.getName() + " " + author.getSurname() + "   ";
-        this.authorText.setText(authors);
+        this.titleText.setText(rentalBook.getTitle());
 
-        this.weekPriceText.setText("Price: " + this.rental.getBookCopy().getWeek_unit_price() + "zł");
+        this.authorText.setText(rentalBook.getAuthorString());
+
+        this.weekPriceText.setText("Price: " + this.rental.getBookCopy().getWeekUnitPrice() + "zł");
         this.priceText.setText("Total Price: " + this.rental.getPrice() + "zł");
 
         if(this.rental.getEmployee() != null)
@@ -90,8 +82,9 @@ public class SingleRentalController extends SubController {
         else
             this.employeeText.setText("Waiting for acceptance");
 
-        if(this.rental.getEnd_date() != null)
+        if(this.rental.getEndDate() != null)
             this.cancelButton.setVisible(false);
+
         if(this.rental.getReview() != null || this.rental.getEmployee() == null)
             this.addButton.setVisible(false);
 
@@ -99,30 +92,8 @@ public class SingleRentalController extends SubController {
 
     @FXML
     private void cancelRental(ActionEvent event) throws IOException {
-        informAboutReturnedBook();
-
-        if(this.rental.getEmployee() == null){
-            this.rentalService.removeRental(this.rental);
-            return;
-        }
-        this.rental.setEnd_date(LocalDateTime.now());
-        this.rentalService.updateRental(this.rental);
+        rentalModel.finishRental(this.rental);
         super.switchScene(SceneType.RENTALS_VIEW);
-
-    }
-
-    private void informAboutReturnedBook(){
-        List<Reservation> reservations = this.service.getReservationsByBook(this.rental.getBookCopy().getBook());
-        this.service.deleteAllReservationsByBook(reservations);
-        if (reservations == null) return;
-        for (Reservation r: reservations){
-            EmailService emailService = new EmailService();
-            emailService.sendSimpleMessage(
-                    r.getReader().getEmail(),
-                    "Dostępna książka",
-                    "Książka: \"" + r.getBook().getTitle() + "\" jest już dostępna w bibliotece!"
-            );
-        }
     }
 
     @FXML

@@ -58,4 +58,9 @@ public class BookService {
     public List<Category> getCategories(){
         return this.categoryRepository.findAll();
     }
+
+    public List<BookCopy> getCopies(Book book){
+        return bookCopyRepository.findBookCopiesByBook(book);
+    }
+
 }

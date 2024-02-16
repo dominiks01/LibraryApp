@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 
 import javax.annotation.PostConstruct;
 
+
 @Controller
 public class BookListController extends SubController {
 
@@ -126,6 +127,10 @@ public class BookListController extends SubController {
     public void LogOutAction() throws IOException {
         clearFilters();
         super.logOutAction();
+    }
+
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
     }
 
     public void clearFilters(){

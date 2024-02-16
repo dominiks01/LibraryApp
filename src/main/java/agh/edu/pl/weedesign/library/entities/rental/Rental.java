@@ -9,10 +9,6 @@ import agh.edu.pl.weedesign.library.entities.review.Review;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 public class Rental {
@@ -69,19 +65,19 @@ public class Rental {
         this.price = price;
     }
 
-    public LocalDateTime getStart_date() {
+    public LocalDateTime getStartDate() {
         return start_date;
     }
 
-    public void setStart_date(LocalDateTime start_date) {
+    public void setStartDate(LocalDateTime start_date) {
         this.start_date = start_date;
     }
 
-    public LocalDateTime getEnd_date() {
+    public LocalDateTime getEndDate() {
         return end_date;
     }
 
-    public void setEnd_date(LocalDateTime end_date) {
+    public void setEndDate(LocalDateTime end_date) {
         this.end_date = end_date;
         this.price = this.countPrice(end_date);
     }
@@ -89,7 +85,7 @@ public class Rental {
     public int countPrice(LocalDateTime end){
         if(this.bookCopy != null){
             int nOfWeeks = (int)this.start_date.until(end, ChronoUnit.WEEKS) + 1;
-            return nOfWeeks*this.bookCopy.getWeek_unit_price();
+            return nOfWeeks*this.bookCopy.getWeekUnitPrice();
         }
         return 0;
     }

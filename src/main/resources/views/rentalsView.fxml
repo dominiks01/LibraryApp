@@ -90,7 +90,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <CheckBox fx:id="showAllBox" mnemonicParsing="false" text="Show All Books" />
+            <CheckBox fx:id="showAllBox" mnemonicParsing="false" onMouseClicked="#showAllRentals" text="Show All Books" />
             <TableView fx:id="rentalsTable" style="-fx-background-color: transparent; -fx-background-radius: 2; -fx-border-width: 1; -fx-border-radius: 3; -fx-border-insets: 2; -fx-padding: 1;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="342.0">

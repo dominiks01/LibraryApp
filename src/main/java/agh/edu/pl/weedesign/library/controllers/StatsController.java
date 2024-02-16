@@ -125,7 +125,7 @@ public class StatsController extends SubController {
         rentedSeries.getData().add(new XYChart.Data<>("All books", this.modelService.getBooksCopies().size()));
         int rented = 0;
         for(Rental rental : rentals)
-            if(rental.getEnd_date() == null)
+            if(rental.getEndDate() == null)
                 rented += 1;
         rentedSeries.getData().add(new XYChart.Data<>("Rented books", rented));
         this.rentedBooksPlot.legendVisibleProperty().set(false);
@@ -137,7 +137,7 @@ public class StatsController extends SubController {
         for(Rental rental : rentals){
             if(rental.getEmployee() != null){
                 for(int i=0;i<12;i++){
-                    if(rental.getStart_date().toLocalDate().isBefore(start.plusMonths(i+1)) && (rental.getEnd_date() == null || rental.getEnd_date().toLocalDate().isAfter(start.plusMonths(i))))
+                    if(rental.getStartDate().toLocalDate().isBefore(start.plusMonths(i+1)) && (rental.getEndDate() == null || rental.getEndDate().toLocalDate().isAfter(start.plusMonths(i))))
                         tab[i] += 1;
                 }
             }
@@ -157,9 +157,9 @@ public class StatsController extends SubController {
         //income plot
         int[] itab = new int[12];
         for(Rental rental : rentals){
-            if(rental.getEmployee() != null && rental.getEnd_date() != null){
+            if(rental.getEmployee() != null && rental.getEndDate() != null){
                 for(int i=0;i<12;i++){
-                    if(rental.getEnd_date().toLocalDate().isAfter(start.plusMonths(i)) && rental.getEnd_date().toLocalDate().isBefore(start.plusMonths(i+1)))
+                    if(rental.getEndDate().toLocalDate().isAfter(start.plusMonths(i)) && rental.getEndDate().toLocalDate().isBefore(start.plusMonths(i+1)))
                         itab[i] += rental.getPrice();
                 }
             }

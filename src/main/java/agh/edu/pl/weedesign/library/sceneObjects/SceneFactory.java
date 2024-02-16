@@ -3,6 +3,7 @@ package agh.edu.pl.weedesign.library.sceneObjects;
 import agh.edu.pl.weedesign.library.LibraryApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import org.springframework.security.core.parameters.P;
 
 
 import java.io.IOException;
@@ -22,13 +23,11 @@ public final class SceneFactory {
     private final String loginViewPath = "/views/loginView.fxml";
     private final String mainViewPath = "/views/mainView.fxml";
     private final String registrationViewPath = "/views/registerView.fxml";
-    private final String welcomeViewPath = "/views/welcomeView.fxml";
-    private final String bookListViewPath = "/views/bookListTest.fxml";
+    private final String bookListViewPath = "/views/bookList.fxml";
     private final String bookViewPath = "/views/bookView.fxml";
     private final String newBookViewPath = "/views/newBookView.fxml";
     private final String bookCopiesViewPath = "/views/bookCopiesView.fxml";
     private final String rentalsViewPath = "/views/rentalsView.fxml";
-    private final String startViewPath = "/views/startView.fxml";
     private final String addReviewViewPath = "/views/addReviewView.fxml";
     private final String reviewsViewPath = "/views/bookReviewsView.fxml";
     private final String employeePanelPath = "/views/employeePanelView.fxml";
@@ -37,6 +36,7 @@ public final class SceneFactory {
     private final String rentalsAcceptanceViewPath = "/views/rentalsAcceptanceView.fxml";
     private final String singleRentalViewPath = "/views/singleRentalView.fxml";
     private final String acceptanceView = "/views/acceptanceView.fxml";
+    private final String settingsViewPath = "/views/settingsView.fxml";
 
     public FXMLLoader createScene(SceneType sceneType) {
         try {
@@ -49,9 +49,6 @@ public final class SceneFactory {
                 }
                 case REGISTER -> {
                     return loadScene(registrationViewPath);
-                }
-                case WELCOME -> {
-                    return loadScene(welcomeViewPath);
                 }
                 case BOOK_LIST -> {
                     return loadScene(bookListViewPath);
@@ -67,9 +64,6 @@ public final class SceneFactory {
                 }
                 case RENTALS_VIEW -> {
                     return loadScene(rentalsViewPath);
-                }
-                case START_VIEW -> {
-                    return loadScene(startViewPath);
                 }
                 case REVIEWS -> {
                     return loadScene(reviewsViewPath);
@@ -92,9 +86,13 @@ public final class SceneFactory {
                 case SINGLE_RENTAL -> {
                     return loadScene(singleRentalViewPath);
                 }
+                case SETTINGS -> {
+                    return loadScene(settingsViewPath);
+                }
                 case ACCEPTANCE -> {
                     return loadScene(acceptanceView);
                 }
+
                 default -> {
                     return null;
                 }

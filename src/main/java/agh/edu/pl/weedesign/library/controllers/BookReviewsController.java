@@ -34,21 +34,8 @@ public class BookReviewsController extends SubController {
     @FXML
     private TableColumn<Review, String> dateColumn;
 
- // Navbar controls 
-    @FXML
-    private Button mainPage; 
 
-    @FXML
-    private Button myRentals; 
-
-    @FXML
-    private Button logOut; 
-
-   @FXML 
-    private ChoiceBox<String> themeChange;
-
-
-    public BookReviewsController(ReviewRepository reviewRepository, DataService dataService, MainController mainController) {
+    public BookReviewsController(ReviewRepository reviewRepository, DataService dataService) {
         super(dataService);
         this.reviewRepository = reviewRepository;
     }
@@ -69,10 +56,13 @@ public class BookReviewsController extends SubController {
 
         idColumn.setCellValueFactory(reviewValue ->
                 new ReadOnlyObjectWrapper<>(reviewValue.getValue().getId()));
+
         rateColumn.setCellValueFactory(reviewValue ->
                 new ReadOnlyObjectWrapper<>(reviewValue.getValue().getStars()));
+
         commentColumn.setCellValueFactory(reviewValue ->
                 new SimpleStringProperty(reviewValue.getValue().getComment()));
+
         dateColumn.setCellValueFactory(reviewValue ->
                 new SimpleStringProperty(reviewValue.getValue().getDateTime().toLocalDate().toString())
         );

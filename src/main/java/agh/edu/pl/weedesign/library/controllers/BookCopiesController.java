@@ -6,6 +6,7 @@ import agh.edu.pl.weedesign.library.entities.bookCopy.BookCopy;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.entities.reservation.Reservation;
 import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
+import agh.edu.pl.weedesign.library.models.BookCopiesModel;
 import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.DataService;
@@ -27,6 +28,7 @@ import java.util.List;
 public class BookCopiesController extends SubController {
 
     public Button reserve;
+
     @FXML
     private TableView<BookCopy> bookTable;
 
@@ -42,17 +44,17 @@ public class BookCopiesController extends SubController {
     @FXML
     private TableColumn<BookCopy, String> availabilityColumn;
 
-    // Navbar controls 
+    // Navbar controls
     @FXML
-    private Button mainPage; 
+    private Button mainPage;
 
     @FXML
-    private Button myRentals; 
+    private Button myRentals;
 
     @FXML
-    private Button logOut; 
+    private Button logOut;
 
-    @FXML 
+    @FXML
     private ChoiceBox<String> themeChange;
 
     private List<BookCopy> bookCopies;
@@ -60,15 +62,16 @@ public class BookCopiesController extends SubController {
     private Book book;
 
     private ModelService service;
-    private BookListProcessor bookListProcessor;
 
-    private RentalModel rentalModel;
+    private final RentalModel rentalModel;
+
+    private final BookCopiesModel bookCopiesModel;
+
 
     @Autowired
-    public BookCopiesController(ModelService service, BookListProcessor bookListProcessor, RentalModel rentalModel, DataService dataService, MainController mainController){
+    public BookCopiesController(RentalModel rentalModel, DataService dataService, BookCopiesModel bookCopiesModel){
         super(dataService);
-        this.service = service;
-        this.bookListProcessor = bookListProcessor;
+        this.bookCopiesModel = bookCopiesModel;
         this.rentalModel = rentalModel;
     }
 
@@ -78,12 +81,14 @@ public class BookCopiesController extends SubController {
 
         idColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(String.valueOf(copyValue.getValue().getId())));
         conditionColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(copyValue.getValue().getCondition()));
-        priceColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(copyValue.getValue().getWeek_unit_price() + " zł"));
+        priceColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(copyValue.getValue().getWeekUnitPrice() + " zł"));
+
         availabilityColumn.setCellValueFactory(copyValue -> {
 
-            for(Rental rental : service.getRentalsByBookCopy(copyValue.getValue()))
-                if(rental.getEnd_date() == null)
+            for(Rental rental : bookCopiesModel.getRentalsByBook(copyValue.getValue().getBook()))
+                if(rental.getEndDate() == null)
                     return new SimpleStringProperty("Not Available");
+
             return new SimpleStringProperty("Available");
         });
 
@@ -91,11 +96,13 @@ public class BookCopiesController extends SubController {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 BookCopy toRent = bookTable.getSelectionModel().getSelectedItem();
                 boolean canBeRented = true;
-                for(Rental rental : service.getRentalsByBookCopy(toRent))
-                    if(rental.getEnd_date() == null){
+
+                for(Rental rental : bookCopiesModel.getRentalsByBookCopy(toRent))
+                    if(rental.getEndDate() == null){
                         canBeRented = false;
                         break;
                     }
+
                 if(canBeRented){
                     this.rentalModel.rentBook(toRent);
                     try {
@@ -110,7 +117,7 @@ public class BookCopiesController extends SubController {
 
     private void fetchCopiesData(){
         this.book = super.dataService.getSelectedBook();
-        this.bookCopies = new ArrayList<>(this.service.getCopies(this.book));
+        this.bookCopies = new ArrayList<>(this.bookCopiesModel.getBookCopies(this.book));
         bookTable.setItems(FXCollections.observableList(this.bookCopies));
     }
 
