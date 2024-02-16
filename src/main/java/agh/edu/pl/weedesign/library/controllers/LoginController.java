@@ -1,21 +1,13 @@
 package agh.edu.pl.weedesign.library.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import agh.edu.pl.weedesign.library.models.LoginModel;
-import agh.edu.pl.weedesign.library.models.RegisterModel;
-import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
-import agh.edu.pl.weedesign.library.services.ReaderService;
+import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
-import agh.edu.pl.weedesign.library.entities.reader.Reader;
 import agh.edu.pl.weedesign.library.helpers.Encryptor;
 import agh.edu.pl.weedesign.library.helpers.ValidCheck;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
@@ -23,7 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 @Component
-public class LoginController extends IController {
+public class LoginController extends SubController {
 
     // login view
     @FXML
@@ -33,22 +25,22 @@ public class LoginController extends IController {
     private PasswordField loginPasswordField;
 
     @FXML
-    private Label signUp;
-
-    @FXML
     private Label messageLabel;
-
-    @FXML
-    private Button loginButton;
 
     private Encryptor passwordEncryptor;
 
     private LoginModel loginModel;
 
     @Autowired
-    public void LoginController(LoginModel loginModel, Encryptor passwordEncryptor){
+    public LoginController(LoginModel loginModel, Encryptor passwordEncryptor, DataService dataService){
+        super(dataService);
         this.loginModel = loginModel;
         this.passwordEncryptor = passwordEncryptor;
+    }
+
+    @FXML
+    public void initialize(){
+        this.loginModel.setDataService(super.dataService);
     }
 
     @FXML
@@ -56,6 +48,8 @@ public class LoginController extends IController {
         String encryptedUserPassword = passwordEncryptor.encryptMessage(loginPasswordField.getText());
 
         ValidCheck status = loginModel.login( loginField.getText(), encryptedUserPassword, true);
+
+        System.out.println(status);
 
         if(status.isValid()) {
             super.switchScene(SceneType.EMPLOYEE_PANEL);

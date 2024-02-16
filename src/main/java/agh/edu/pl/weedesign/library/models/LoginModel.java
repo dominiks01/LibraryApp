@@ -29,6 +29,7 @@ public class LoginModel {
     }
 
     public void setDataService(DataService dataService) {
+        System.out.println("XD " + dataService);
         this.dataService = dataService;
     }
 
@@ -42,15 +43,21 @@ public class LoginModel {
             if(encryptedRealPassword == null || userPassword == null)
                 return new ValidCheck(false, "");
 
-            if (Objects.equals(userPassword, encryptedRealPassword) ) {
+            if (employeeService.getEmployeeByEmail(login) == null){
+                throw new IllegalArgumentException("User not found!");
+            }
+
+            if (userPassword.equals(encryptedRealPassword )) {
+                dataService.setEmployee(employeeService.getEmployeeByEmail(login));
                 System.out.println("Access granted");
+                return new ValidCheck(true, "");
             }
 
         } catch (Exception e ){
             return new ValidCheck(false, e.getMessage());
         };
 
-        return new ValidCheck(true, "");
+        return new ValidCheck(false, "");
     }
 
     public ValidCheck login(String login, String userPassword){
@@ -62,12 +69,13 @@ public class LoginModel {
 
             if (Objects.equals(userPassword, encryptedRealPassword) ) {
                 System.out.println("Access granted");
+                return new ValidCheck(true, "");
             }
 
         } catch (Exception e ){
             return new ValidCheck(false, e.getMessage());
         };
 
-        return new ValidCheck(true, "");
+        return new ValidCheck(false, "");
     };
 }

@@ -1,15 +1,14 @@
 package agh.edu.pl.weedesign.library.controllers;
 
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.bookCopy.BookCopy;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.entities.reservation.Reservation;
 import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
-import agh.edu.pl.weedesign.library.helpers.Themes;
 import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class BookCopiesController extends IController {
+public class BookCopiesController extends SubController {
 
     public Button reserve;
     @FXML
@@ -66,14 +65,15 @@ public class BookCopiesController extends IController {
     private RentalModel rentalModel;
 
     @Autowired
-    public BookCopiesController(ModelService service, BookListProcessor bookListProcessor, RentalModel rentalModel){
+    public BookCopiesController(ModelService service, BookListProcessor bookListProcessor, RentalModel rentalModel, DataService dataService, MainController mainController){
+        super(dataService);
         this.service = service;
         this.bookListProcessor = bookListProcessor;
         this.rentalModel = rentalModel;
     }
 
-    @Override
-    public void consumeData(){
+    @FXML
+    public void initialize(){
         fetchCopiesData();
 
         idColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(String.valueOf(copyValue.getValue().getId())));
@@ -106,11 +106,6 @@ public class BookCopiesController extends IController {
                 }
             }
         });
-    }
-
-    @FXML
-    public void initialize(){
-
     }
 
     private void fetchCopiesData(){

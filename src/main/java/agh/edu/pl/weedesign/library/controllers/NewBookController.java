@@ -4,10 +4,10 @@ package agh.edu.pl.weedesign.library.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import agh.edu.pl.weedesign.library.services.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.models.NewBookModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 
 
 @Controller
-public class NewBookController extends IController {
+public class NewBookController extends SubController {
 
     private final NewBookModel model;
 
@@ -69,7 +69,8 @@ public class NewBookController extends IController {
     private ModelService service;
 
     @Autowired
-    public NewBookController(NewBookModel model, ModelService service){
+    public NewBookController(NewBookModel model, ModelService service, DataService dataService, MainController mainController){
+        super(dataService);
         this.model = model;
         this.service = service;
     }
@@ -117,12 +118,15 @@ public class NewBookController extends IController {
         handleCancelAction();
     }
 
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
+    }
 
-    @Override
-    public void consumeData(){
+    @FXML
+    public void initialize(){
         ArrayList<Category> categoryList = (ArrayList<Category>) service.getCategories();
+
         for(Category i: categoryList)
             categories.getItems().add(i.getName());
     }
-
 }

@@ -1,20 +1,20 @@
 package agh.edu.pl.weedesign.library.controllers;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.employee.AccessLevel;
-import agh.edu.pl.weedesign.library.helpers.Themes;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Text;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
 @Controller
-public class EmployeePanelController extends IController{
+public class EmployeePanelController extends SubController {
     public Text errorMsg;
     @FXML
     private Button addEmployee;
@@ -37,7 +37,12 @@ public class EmployeePanelController extends IController{
      @FXML 
      private ChoiceBox<String> themeChange;
 
-     @FXML
+     @Autowired
+     public EmployeePanelController(DataService dataService, MainController mainController) {
+        super(dataService);
+     }
+
+    @FXML
      public void initialize(){
     }
 
@@ -46,21 +51,21 @@ public class EmployeePanelController extends IController{
             super.switchScene(SceneType.NEW_BOOK_VIEW);
         }
         else{
-            errorMsg.setText("Nie masz uprawnień, aby stworzyć nową książkę!");
+            errorMsg.setText("No permission for adding new book");
         }
     }
 
-    public void handleAddEmployeeAction(ActionEvent actionEvent) {
+    public void handleAddEmployeeAction(ActionEvent actionEvent) throws IOException {
         if (super.dataService.getEmployee().getAccessLevel().ordinal() >= AccessLevel.MANAGER.ordinal()){
-//            LibraryApplication.getAppController().switchScene(SceneType.ADD_EMPLOYEE);
+            super.switchScene(SceneType.ADD_EMPLOYEE);
         }
         else{
-            errorMsg.setText("Nie masz uprawnień, aby dodać nowego pracownika!");
+            errorMsg.setText("No permission for adding new employee");
         }
     }
 
-    public void showStats(ActionEvent actionEvent) {
-//        LibraryApplication.getAppController().switchScene(SceneType.STATS_VIEW);
+    public void showStats(ActionEvent actionEvent) throws IOException {
+        super.switchScene(SceneType.STATS_VIEW);
     }
 
     public void acceptRental(ActionEvent actionEvent) throws IOException {

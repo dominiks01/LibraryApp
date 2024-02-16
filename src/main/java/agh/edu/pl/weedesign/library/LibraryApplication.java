@@ -1,12 +1,13 @@
 package agh.edu.pl.weedesign.library;
 
-import agh.edu.pl.weedesign.library.controllers.IController;
+import agh.edu.pl.weedesign.library.controllers.SubController;
 import agh.edu.pl.weedesign.library.controllers.MainController;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.employee.Employee;
 import agh.edu.pl.weedesign.library.entities.reader.Reader;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,18 +18,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.Stack;
 
-import org.springframework.boot.WebApplicationType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
+@Service
 public class LibraryApplication extends Application {
-	private Stage primaryStage;
-	private static MainController mainController;
-	private static IController currentSceneController;
+	private DataService dataService;
+
+    private static SubController currentSceneController;
 	private static ConfigurableApplicationContext context;
 	private static Reader reader;
 	private static Book book;
@@ -36,41 +41,28 @@ public class LibraryApplication extends Application {
 	private static String theme = "Nord Dark";
 	private static ArrayList<Object> filterStrategy = null;
 	private static final SceneFactory factory = new SceneFactory();
+	private static MainController mainController;
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws IOException {
+	public void start(Stage stage) throws IOException {
 		Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/themes/nord-dark.css")).toExternalForm());
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LibraryApplication.class);
-		builder.application().setWebApplicationType(WebApplicationType.NONE);
+//		builder.application().setWebApplicationType(WebApplicationType.NONE);
 
 		context = builder.run();
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Library App");
 
-		mainController = new MainController(this.primaryStage, context);
-
-		FXMLLoader loader = factory.createScene(SceneType.LOGIN);
-        Parent root = Objects.requireNonNull(loader).load();
-
-		currentSceneController = loader.getController();
-		currentSceneController.setMainController(mainController);
-		mainController.setCurrentSceneController(currentSceneController);
-
-		primaryStage.setScene(new Scene(root));
-		primaryStage.show();
+        MainController mainController = new MainController(dataService);
+		mainController.loadNewScene(SceneType.LOGIN);
 	}
 
 	public static ConfigurableApplicationContext getAppContext(){
 		return context;
 	}
 
-	public static MainController getAppController(){
-		return mainController;
-	}
 
 	public static String getTheme(){
 		return theme;

@@ -50,7 +50,8 @@ public class ModelConfigurator {
     @Bean
     CommandLineRunner commandLineRunner(AuthorRepository authorRepository, BookRepository bookRepository, BookCopyRepository bookCopyRepository, CategoryRepository categoryRepository, EmployeeRepository employeeRepository, ReaderRepository readerRepository, RentalRepository rentalRepository, ReviewRepository reviewRepository) {
         return args -> {
-            if (bookRepository.count() == 0) {
+            if (false) {
+                System.out.println("TEST");
                 // TODO: Opis jest przycinany w złych miejscach + Poprawić Autorów i Kategorie! 
 
                 Map<Object, Object> bookPrice = Stream.of(

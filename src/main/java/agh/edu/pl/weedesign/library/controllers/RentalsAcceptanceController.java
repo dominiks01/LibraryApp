@@ -1,40 +1,32 @@
 package agh.edu.pl.weedesign.library.controllers;
 
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.author.Author;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
-import agh.edu.pl.weedesign.library.helpers.Themes;
-import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
-import agh.edu.pl.weedesign.library.services.RentalService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import org.jboss.jandex.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.crypto.Mac;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class RentalsAcceptanceController extends IController {
+public class RentalsAcceptanceController extends SubController {
 
     @FXML
     private TableView<Rental> rentalsTable;
@@ -62,12 +54,13 @@ public class RentalsAcceptanceController extends IController {
     private final SceneFactory factory = new SceneFactory();
 
     @Autowired
-    public RentalsAcceptanceController(ModelService service){
+    public RentalsAcceptanceController(ModelService service, DataService dataService, MainController mainController){
+        super(dataService);
         this.service = service;
     }
 
-    @Override
-    public void consumeData(){
+    @FXML
+    public void initialize(){
         fetchRentalsData();
 
         titleColumn.setCellValueFactory(rentalValue -> new SimpleStringProperty(rentalValue.getValue().getBookCopy().getBook().getTitle()));
@@ -89,7 +82,7 @@ public class RentalsAcceptanceController extends IController {
         endDateColumn.setCellValueFactory(rentalValue -> {
             LocalDateTime end = rentalValue.getValue().getEnd_date();
             if(end == null)
-                return new SimpleStringProperty("Aktualnie wypożyczona");
+                return new SimpleStringProperty("Already rented");
             return new SimpleStringProperty(end.toLocalDate().toString());
         });
 
@@ -114,20 +107,13 @@ public class RentalsAcceptanceController extends IController {
         assert loader != null;
         Parent root = loader.load();
 
-        IController currentSceneController =loader.getController();
-        currentSceneController.setDataService(this.dataService);
-        currentSceneController.consumeData();
+        SubController currentSceneController =loader.getController();
         currentSceneController.setMainController(super.getMainController());
 
         Stage stage = new Stage();
         stage.setTitle("My New Stage Title");
         stage.setScene(new Scene(root, 300, 300));
         stage.show();
-
-    }
-
-    @FXML
-    public void initialize(){
 
     }
 
@@ -161,7 +147,6 @@ public class RentalsAcceptanceController extends IController {
     @Override
     public void reload(){
         rentals.clear();
-        consumeData();
     }
 
 }

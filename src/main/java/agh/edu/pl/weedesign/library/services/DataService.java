@@ -9,6 +9,9 @@ import agh.edu.pl.weedesign.library.entities.review.Review;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Service
 public class DataService {
     private Review selectedReview;
     private Book selectedBook;
@@ -27,6 +30,10 @@ public class DataService {
     private Rental rental;
     private Map<Book, ImageView> bookCovers = new HashMap<Book, ImageView>();
     private ArrayList<ImageView> visibleBookCovers = new ArrayList<>();
+    private ArrayList<ImageView> popularBooksCovers = new ArrayList<>();
+    private ArrayList<ImageView> recommendedBooksCovers = new ArrayList<>();
+
+
     private static DataService instance;
     private ArrayList<Label> categories = new ArrayList<>();
 
@@ -92,5 +99,21 @@ public class DataService {
 
     public void setCategories(ArrayList<Label> categories) {
         this.categories = categories;
+    }
+
+    public ArrayList<ImageView> getPopularBooksCovers() {
+        return popularBooksCovers;
+    }
+
+    public void setPopularBooksCovers(ArrayList<ImageView> popularBooksCovers) {
+        this.popularBooksCovers = popularBooksCovers;
+    }
+
+    public ArrayList<ImageView> getRecommendedBooksCovers() {
+        return recommendedBooksCovers;
+    }
+
+    public void setRecommendedBooksCovers(ArrayList<ImageView> recommendedBooksCovers) {
+        this.recommendedBooksCovers = recommendedBooksCovers;
     }
 }

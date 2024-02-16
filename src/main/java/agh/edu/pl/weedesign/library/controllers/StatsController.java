@@ -1,15 +1,12 @@
 package agh.edu.pl.weedesign.library.controllers;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
-import agh.edu.pl.weedesign.library.entities.bookCopy.BookCopy;
 import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.entities.reader.Reader;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
-import agh.edu.pl.weedesign.library.helpers.Themes;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
@@ -17,7 +14,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +25,7 @@ import java.util.*;
 
 
 @Controller
-public class StatsController extends IController{
+public class StatsController extends SubController {
 
     @FXML
     private Text readersText;
@@ -78,24 +74,21 @@ public class StatsController extends IController{
     final private ModelService modelService;
 
     @Autowired
-    public StatsController(ModelService service){
+    public StatsController(ModelService service, DataService dataService, MainController mainController){
+        super(dataService);
         this.modelService = service;
     }
 
     @FXML
     public void initialize(){
-        themeChange.getItems().addAll(Themes.getAllThemes());
-        themeChange.setOnAction(this::changeTheme);
-        themeChange.setValue(LibraryApplication.getTheme());
-
         //get rental data (often used)
         List<Rental> rentals = this.modelService.getRentals();
 
 
         //text stats
-        this.booksText.setText("Liczba książek w bibliotece: " + this.modelService.getBooksCopies().size());
-        this.employeesText.setText("Liczba pracowników biblioteki: " + this.modelService.getEmployees().size());
-        this.readersText.setText("Liczba czytelników biblioteki: " + this.modelService.getReaders().size());
+        this.booksText.setText("No. books in library: " + this.modelService.getBooksCopies().size());
+        this.employeesText.setText("No. library employees: " + this.modelService.getEmployees().size());
+        this.readersText.setText("No. readers in library: " + this.modelService.getReaders().size());
 
         //sexy plot
         int male = 0;
@@ -109,9 +102,9 @@ public class StatsController extends IController{
             else
                 other += 1;
         }
-        PieChart.Data maleData = new PieChart.Data("Mężczyźni", male);
-        PieChart.Data femaleData = new PieChart.Data("Kobiety", female);
-        PieChart.Data otherData = new PieChart.Data("Nie podano", other);
+        PieChart.Data maleData = new PieChart.Data("Male", male);
+        PieChart.Data femaleData = new PieChart.Data("Female", female);
+        PieChart.Data otherData = new PieChart.Data("Other", other);
         this.sexPlot.legendVisibleProperty().set(false);
         this.sexPlot.getData().addAll(maleData, femaleData, otherData);
 
@@ -129,12 +122,12 @@ public class StatsController extends IController{
 
         //rented books
         XYChart.Series<String, Number> rentedSeries = new XYChart.Series<>();
-        rentedSeries.getData().add(new XYChart.Data<>("Liczba wszystkich książek", this.modelService.getBooksCopies().size()));
+        rentedSeries.getData().add(new XYChart.Data<>("All books", this.modelService.getBooksCopies().size()));
         int rented = 0;
         for(Rental rental : rentals)
             if(rental.getEnd_date() == null)
                 rented += 1;
-        rentedSeries.getData().add(new XYChart.Data<>("Liczba aktualnie wypożyczonych książek", rented));
+        rentedSeries.getData().add(new XYChart.Data<>("Rented books", rented));
         this.rentedBooksPlot.legendVisibleProperty().set(false);
         this.rentedBooksPlot.getData().add(rentedSeries);
 
@@ -239,23 +232,20 @@ public class StatsController extends IController{
     }
 
     public void goBackAction(){
-        LibraryApplication.getAppController().back();
+        super.goBack();
     }
 
     public void goForwardAction(){
-        LibraryApplication.getAppController().forward();
+        super.goForward();
     }
 
     public void mainPageButtonHandler() throws IOException {
-        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL); 
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
 
-    public void changeTheme(ActionEvent e){
-        LibraryApplication.changeTheme(themeChange.getValue());
-    }
 
     public void LogOutAction() throws IOException {
-        LibraryApplication.getAppController().logOut();
+       super.logOutAction();
     }
 
 }

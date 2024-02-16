@@ -161,7 +161,7 @@ public class ModelService {
     }
     public List<Book> getMostPopularBooks(int n){
         List<Book> books = bookRepository.findBooksOrderedByRentalCountDesc();
-        return books.subList(0, Math.min(n, books.size()));
+        return books.stream().limit(10L *n).toList();
     }
     public List<Book> getRentedBooks(Reader r){
         return this.bookRepository.findBooksRentedByReader(r);

@@ -6,30 +6,39 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.edu.pl.weedesign.library.controllers.BookCopiesController">
    <center>
-      <Pane prefHeight="825.0" prefWidth="1190.0" BorderPane.alignment="CENTER">
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <TableView fx:id="bookTable" layoutX="-84.0" layoutY="-1.0" prefHeight="790.0" prefWidth="1274.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 0; -fx-border-insets: 0; -fx-padding: 0; -fx-background-color: transparent;">
+            <TableView fx:id="bookTable" prefHeight="845.0" prefWidth="1269.0" style="-fx-background-radius: 2; -fx-border-radius: 3; -fx-border-width: 1; -fx-border-insets: 2; -fx-padding: 1; -fx-background-color: transparent;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="314.0" style="-fx-background-radius: 5;" text="Copy ID" />
-                  <TableColumn fx:id="conditionColumn" minWidth="0.0" prefWidth="250.0" style="-fx-background-radius: 5;" text="Book Condition" />
-                  <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="334.0" text="Book Price " />
-                  <TableColumn fx:id="availabilityColumn" prefWidth="376.0" style="-fx-background-radius: 5;" text="Availability" />
+                  <TableColumn fx:id="idColumn" prefWidth="366.0" style="-fx-background-radius: 5;" text="Copy ID" />
+                  <TableColumn fx:id="conditionColumn" minWidth="0.0" prefWidth="378.0" style="-fx-background-radius: 5;" text="Book Condition" />
+                  <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="243.0" text="Book Price " />
+                  <TableColumn fx:id="availabilityColumn" prefWidth="283.0" style="-fx-background-radius: 5;" text="Availability" />
                </columns>
             </TableView>
          </children>
          <BorderPane.margin>
-            <Insets left="100.0" right="100.0" top="25.0" />
+            <Insets bottom="5.0" />
          </BorderPane.margin>
-      </Pane>
+      </GridPane>
    </center>
    <top>
-      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" BorderPane.alignment="CENTER">
+      <HBox maxWidth="2000.0" minWidth="500.0" prefHeight="40.0" prefWidth="944.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #8aa4b7;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
@@ -84,9 +93,9 @@
       </HBox>
    </top>
    <right>
-      <Pane maxHeight="0.0" maxWidth="0.0" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+      <Pane maxHeight="0.0" maxWidth="0.0" minWidth="5.0" prefHeight="0.0" prefWidth="5.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <Pane maxHeight="0.0" maxWidth="0.0" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+      <Pane maxHeight="0.0" maxWidth="0.0" minWidth="5.0" prefHeight="0.0" prefWidth="5.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

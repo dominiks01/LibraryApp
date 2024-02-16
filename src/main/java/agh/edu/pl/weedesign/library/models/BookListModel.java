@@ -1,10 +1,10 @@
 package agh.edu.pl.weedesign.library.models;
 
 import agh.edu.pl.weedesign.library.controllers.BookListController;
-import agh.edu.pl.weedesign.library.controllers.IController;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
+import agh.edu.pl.weedesign.library.helpers.Recommender;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.BookService;
 import agh.edu.pl.weedesign.library.services.DataService;
@@ -30,13 +30,15 @@ public class BookListModel {
     private Category selectedCategory;
     private DataService dataService;
     private BookListController controller;
+    private Recommender recommender;
 
     private BookListProcessor bookListProcessor;
 
     @Autowired
-    public BookListModel(ConfigurableApplicationContext springContext, BookService bookService ){
+    public BookListModel(ConfigurableApplicationContext springContext, BookService bookService, Recommender recommender ){
         this.springContext = springContext;
         this.service = bookService;
+        this.recommender = recommender;
     }
 
     public ArrayList<ImageView> getBookCovers(){
@@ -49,6 +51,14 @@ public class BookListModel {
         }
 
         return new ArrayList<>(dataService.getBookCovers().values());
+    }
+
+    public ArrayList<ImageView> getMostPopularBooks(){
+        return dataService.getPopularBooksCovers();
+    }
+
+    public ArrayList<ImageView> getRecommendedBooksCovers(){
+        return dataService.getRecommendedBooksCovers();
     }
 
     public ArrayList<Label> getCategoriesLabels(){
@@ -72,7 +82,24 @@ public class BookListModel {
                     .collect(Collectors.toCollection(ArrayList::new));
 
             dataService.setCategories(categoryLabels);
+        }
 
+        if (dataService.getPopularBooksCovers().isEmpty()){
+            dataService.setPopularBooksCovers(
+                    dataService.getBookCovers().entrySet().stream()
+                    .filter(x-> recommender.getMostPopularBooks(20).contains(x.getKey()))
+                    .map(Map.Entry::getValue)
+                    .collect(Collectors.toCollection(ArrayList::new)));
+        }
+
+
+
+        if (dataService.getRecommendedBooksCovers().isEmpty()){
+            dataService.setRecommendedBooksCovers(
+                    dataService.getBookCovers().entrySet().stream()
+                            .filter(x-> recommender.getMostPopularBooks(10).contains(x.getKey()))
+                            .map(Map.Entry::getValue)
+                            .collect(Collectors.toCollection(ArrayList::new)));
         }
     }
 

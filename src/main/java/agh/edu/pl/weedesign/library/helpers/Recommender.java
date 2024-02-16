@@ -4,7 +4,9 @@ import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.category.Category;
 import agh.edu.pl.weedesign.library.entities.reader.Reader;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,9 +19,10 @@ public class Recommender {
     private boolean showRecommendations = true;
     private boolean showPopularBooks = true;
     private ModelService modelService;
+    private DataService dataService;
 
+    @Autowired
     public Recommender(ModelService modelService){
-//        this.reader = LibraryApplication.getReader();
         this.modelService  = modelService;
     }
 
@@ -73,5 +76,9 @@ public class Recommender {
 
     public void setShowRecommendations(boolean value){
         this.showRecommendations = value;
+    }
+
+    public void setDataService(DataService dataService){
+        this.dataService = dataService;
     }
 }

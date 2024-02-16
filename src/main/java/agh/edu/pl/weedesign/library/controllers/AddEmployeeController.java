@@ -1,11 +1,14 @@
 package agh.edu.pl.weedesign.library.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
+import agh.edu.pl.weedesign.library.models.NewEmployeeModel;
+import agh.edu.pl.weedesign.library.services.DataService;
+import agh.edu.pl.weedesign.library.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.employee.AccessLevel;
 import agh.edu.pl.weedesign.library.entities.employee.Employee;
 import agh.edu.pl.weedesign.library.helpers.Encryptor;
@@ -19,7 +22,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 @Component
-public class AddEmployeeController {
+public class AddEmployeeController extends SubController {
+
     @FXML
     public TextField emailInput;
 
@@ -47,60 +51,63 @@ public class AddEmployeeController {
     @FXML
     private ChoiceBox<AccessLevel> accessLevelChoiceBox;
 
-    @Autowired
-    private Encryptor passwordEncryptor;
-    
-    @Autowired
-    private ModelService service;
+    private final NewEmployeeModel modelService;
 
-    private final ModelService modelService;
-
-    public AddEmployeeController(ModelService modelService) {
+    @Autowired
+    public AddEmployeeController(NewEmployeeModel modelService, DataService dataService, MainController mainController) {
+        super(dataService);
         this.modelService = modelService;
     }
+
     @FXML
     private void initialize() {
         List<Employee> employees = this.modelService.getEmployees();
         reportsToChoiceBox.setItems(FXCollections.observableArrayList(employees));
         accessLevelChoiceBox.setItems(FXCollections.observableArrayList(AccessLevel.values()));
     }
+
     @FXML
-    private void handleAddAction(){
-        addButton.setDisable(true);
-        cancelButton.setDisable(true);
+    private void handleAddAction() throws IOException {
         try {
-//            checkerGuard(checker.isRegisterNameValid(nameInput.getText()));
-//            checkerGuard(checker.isRegisterSurnameValid(nameInput.getText()));
-//            checkerGuard(checker.isRegisterEmailValid(emailInput.getText()));
-//            checkerGuard(checker.isRegisterPasswordValid(passwordInput.getText()));
-//            checkerGuard(checker.isSalaryValid(salaryInput.getText()));
+            this.modelService.setName(nameInput.getText());
+            this.modelService.setSurname(surnameInput.getText());
+            this.modelService.setSalary(salaryInput.getText());
+            this.modelService.setEmail(emailInput.getText());
+            this.modelService.setPassword(passwordInput.getText());
+            this.modelService.setSupervisor(reportsToChoiceBox.getValue());
+            this.modelService.setPermissions(accessLevelChoiceBox.getValue());
+
+            this.modelService.register();
+
+
         } catch (IllegalArgumentException e ){
             System.out.println(e.getMessage());
             return;
         }
-        finally {
-            addButton.setDisable(false);
-            cancelButton.setDisable(false);
-        }
 
-        Employee newEmployee = new Employee(nameInput.getText(), surnameInput.getText(), Integer.parseInt(salaryInput.getText()),
-                emailInput.getText(), passwordEncryptor.encryptMessage(passwordInput.getText()), accessLevelChoiceBox.getValue());
-
-        service.addNewEmployee(newEmployee);
-        hopToNextScene(SceneType.EMPLOYEE_PANEL);
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
 
-    public void hopToNextScene(SceneType sceneType){
-//        LibraryApplication.getAppController().switchScene(sceneType);
-    }
 
-    public void checkerGuard(ValidCheck check){
-        if (!check.isValid()){
-            throw new IllegalArgumentException(check.message());
-        }
-    }
     @FXML
-    private void handleCancelAction(){
-//        LibraryApplication.getAppController().switchScene(SceneType.EMPLOYEE_PANEL);
+    private void handleCancelAction() throws IOException {
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
+
+    public void goBackAction() throws IOException {
+        super.goBack();
+    }
+
+    public void goForwardAction() throws IOException {
+        super.goForward();
+    }
+
+    public void mainPageButtonHandler() throws IOException {
+        super.switchScene(SceneType.EMPLOYEE_PANEL);
+    }
+
+    public void LogOutAction() throws IOException {
+        super.logOutAction();
+    }
+
 }

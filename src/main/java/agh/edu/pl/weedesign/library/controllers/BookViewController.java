@@ -2,13 +2,13 @@ package agh.edu.pl.weedesign.library.controllers;
 
 import java.io.IOException;
 
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.book.Book;
-import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.models.RentalModel;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import javafx.event.ActionEvent;
@@ -20,12 +20,13 @@ import javafx.scene.image.ImageView;
 
 
 @Controller
-public class BookViewController extends IController {
+public class BookViewController extends SubController {
     private Book book;
     private ModelService service;
 
     @Autowired
-    public BookViewController(RentalModel rental_model, ModelService service){
+    public BookViewController(RentalModel rental_model, ModelService service, DataService dataService, MainController mainController){
+        super(dataService);
         this.service = service;
     }
 
@@ -62,22 +63,18 @@ public class BookViewController extends IController {
     
     @FXML
     public void initialize() throws IOException  {
-    }
-
-    @Override
-    public void consumeData() throws IOException {
         this.book = super.dataService.getSelectedBook();
 
         if(this.book == null){
             System.out.println("No book was selected");
-            LibraryApplication.getAppController().switchScene(SceneType.BOOK_LIST);
+            switchScene(SceneType.BOOK_VIEW);
         }
 
         description_label.setText(book.getDescription());
         book_title_label.setText(book.getTitle());
 
         author_label.setText(
-                "Autor: " + book.getAuthorString()
+                "Author: " + book.getAuthorString()
         );
 
         Image img;
@@ -89,7 +86,7 @@ public class BookViewController extends IController {
             System.out.println("Cover not found");
         }
         Double rating = this.service.getAverageRating(book);
-        rating_label.setText(rating == null ? "Brak ocen" : rating.toString());
+        rating_label.setText(rating == null ? "No ratings" : rating.toString());
     }
 
     public void handleCancelAction(ActionEvent e) throws IOException {

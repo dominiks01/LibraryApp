@@ -1,72 +1,69 @@
 package agh.edu.pl.weedesign.library.controllers;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
-import agh.edu.pl.weedesign.library.entities.book.Book;
-import agh.edu.pl.weedesign.library.entities.employee.Employee;
-import agh.edu.pl.weedesign.library.entities.reader.Reader;
+import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 
+@Service
 public class MainController {
     private Stage primaryStage;
-    private Scene currentScene;
     public SceneFactory factory;
 
-    private ArrayList<Parent> undo_stack; 
-    private ArrayList<Parent> next_stack; 
+    private final Stack<SceneType> undoStack = new Stack<>();
+    private final Stack<SceneType> nextStack= new Stack<>();
 
-    ConfigurableApplicationContext springContext;
-    private IController currentSceneController;
-
+    private SubController currentSceneController;
     private DataService dataService;
 
-    public MainController(Stage stage, ConfigurableApplicationContext springContext){
-        this.primaryStage = stage;
-        this.springContext = springContext;
-        factory = new SceneFactory();
-
-        dataService = new DataService();
-
-        undo_stack = new ArrayList<>(10);
-        next_stack = new ArrayList<>(10);
-        this.resize(1300, 950);
+    public MainController(DataService dataService) throws IOException {
+        this.dataService = dataService;
     }
 
-    public void setCurrentSceneController(IController currentSceneController){
-       this.currentSceneController = currentSceneController;
+    @PostConstruct
+    public void init() throws IOException {
     }
 
     public void switchScene(SceneType sceneType) throws IOException {
-        FXMLLoader loader = factory.createScene(sceneType);
+        loadNewScene(sceneType);
+        undoStack.add(sceneType);
+        nextStack.clear();
+    }
+
+    public void loadNewScene(SceneType sceneType) throws IOException {
+        FXMLLoader loader = SceneFactory.getInstance().createScene(sceneType);
+
+        assert loader != null;
         Parent root = loader.load();
 
         currentSceneController = loader.getController();
-        currentSceneController.setDataService(this.dataService);
-        currentSceneController.consumeData();
         currentSceneController.setMainController(this);
-        setCurrentSceneController(currentSceneController);
 
-        primaryStage.setScene(new Scene(root));
-        this.resize(1300, 950);
-    }
+        if(this.primaryStage == null){
+            this.primaryStage = new Stage();
+            this.primaryStage.setScene(new Scene(root));
+            this.resize(1320, 950);
+            this.primaryStage.show();
+        }
+        else {
+            this.primaryStage.setScene(new Scene(root));
+            this.resize(1320, 950);
+        }
 
-    public void saveData(Object obj){
-        this.currentScene.setUserData(obj);
-    }
-
-    public Object getData(){
-        return this.currentScene.getUserData();
     }
 
     public void resize(int width, int height){
@@ -74,25 +71,32 @@ public class MainController {
         this.primaryStage.setHeight(height);
     }
 
-    public void back(){
-        if(next_stack.size() == 10)
-            next_stack.remove(0);
 
-        next_stack.add(currentScene.getRoot());
-        currentScene.setRoot((Parent)undo_stack.get(undo_stack.size() - 1));
+    public void back() {
+        try {
+            SceneType last_scene = undoStack.pop();
+
+            if(nextStack.empty())
+                last_scene = undoStack.pop();
+
+            nextStack.add(last_scene);
+            loadNewScene(last_scene);
+
+        } catch (Exception e){
+            return;
+        }
     }
 
     public void forward(){
-        if(next_stack.size() == 0)
-            return; 
-        
-        undo_stack.add(currentScene.getRoot());
-        currentScene.setRoot((Parent)next_stack.get(next_stack.size() - 1));
+        try {
+            switchScene(undoStack.pop());
+        } catch (Exception e){
+            return;
+        }
     }
 
     public void reload() throws IOException {
-        this.currentSceneController.reload();
-        this.currentSceneController.consumeData();
+        this.currentSceneController.reinitialize();
     }
 
 

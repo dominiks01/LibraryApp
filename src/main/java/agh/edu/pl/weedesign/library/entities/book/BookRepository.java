@@ -14,21 +14,22 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
-    @Query("SELECT b FROM Book b JOIN b.category c JOIN b.bookCopies bc JOIN bc.rentals rent JOIN rent.reader r WHERE c = :category AND r <> :reader GROUP BY b")
+
+    @Query(value = "SELECT b FROM Book b JOIN b.category c JOIN b.bookCopies bc JOIN bc.rentals rent JOIN rent.reader r WHERE c = :category AND r <> :reader GROUP BY b")
     List<Book> findNotReadBooksFromCategory(Reader reader, Category category);
+
     @Query("SELECT b FROM Book b JOIN b.category c JOIN b.bookCopies bc JOIN bc.rentals r WHERE c = :category GROUP BY b.id ORDER BY COUNT(r) DESC")
     List<Book> findBooksFromCategoryOrderedByRentalCountDesc(Category category);
 
     @Query("SELECT b FROM Book b JOIN b.category c JOIN b.bookCopies bc JOIN bc.rentals rent JOIN rent.reader r WHERE c = :category AND r <> :reader GROUP BY b.id ORDER BY COUNT(rent.id) DESC")
     List<Book> findNotReadBooksFromCategoryOrderedByRentalCountDesc(Reader reader, Category category);
 
-    @Query("SELECT b FROM Book b JOIN b.bookCopies bc JOIN bc.rentals rent GROUP BY b.id, bc.id ORDER BY COUNT(rent.id) DESC")
+    @Query("SELECT b FROM Book b left JOIN b.bookCopies bc left JOIN bc.rentals rent GROUP BY b.id, bc.id ORDER BY COUNT(rent.id) DESC")
     List<Book> findBooksOrderedByRentalCountDesc();
 
     List<Book> findBookByCategory(Category category);
 
     @Query("SELECT b FROM Book b JOIN Author a JOIN Category c WHERE a.surname LIKE :authorSurname OR c.name LIKE :categoryName")
-
     List<Book> getAllByAuthorSurnameOrCategoryName(String authorSurname, String categoryName);
     @Query("SELECT b FROM Book b JOIN BookCopy bc JOIN Rental rent JOIN Reader r WHERE r = :r GROUP BY b ")
     List<Book> findBooksRentedByReader(Reader r);

@@ -2,13 +2,19 @@ package agh.edu.pl.weedesign.library.controllers;
 
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.DataService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
 
-public class IController {
+public class SubController {
     private MainController mainController;
     protected DataService dataService;
+
+    @Autowired
+    public SubController(DataService dataService){
+        this.dataService = dataService;
+    }
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -22,25 +28,27 @@ public class IController {
         this.mainController.switchScene(sceneType);
     }
 
-    public void setDataService(DataService dataService) {
-        this.dataService = dataService;
+    public void reinitialize(){
+
     }
+
 
     public void consumeData() throws IOException {
     }
 
-    public void reload() throws IOException {
+    protected void reload() throws IOException {
+        this.mainController.reload();
     }
 
-    public void logOutAction() throws IOException {
+    protected void logOutAction() throws IOException {
         this.mainController.logOut();
     }
 
-    public void goBack(){
+    protected void goBack(){
         this.mainController.back();
     }
 
-    public void goForward(){
+    protected void goForward(){
         this.mainController.forward();
     }
 }

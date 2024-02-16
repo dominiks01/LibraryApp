@@ -32,10 +32,10 @@
                   <VBox alignment="CENTER">
                      <children>
                         <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" text="Bad login or password" textFill="RED" visible="false" />
-                              <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="36.0" prefWidth="500.0" style="-fx-background-radius: 5;" text="Sign in" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="36.0" prefWidth="500.0" style="-fx-background-radius: 5;" text="Sign in" />
                      </children>
                   </VBox>
-                  <Label fx:id="signUp" onMouseClicked="#signUpButtonClicked" text="New to LibraryApp? Sign Up" textFill="#9e9eff" underline="true">
+                  <Label onMouseClicked="#signUpButtonClicked" text="New to LibraryApp? Sign Up" textFill="#9e9eff" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>

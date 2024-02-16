@@ -1,27 +1,20 @@
 package agh.edu.pl.weedesign.library.controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
 
-import agh.edu.pl.weedesign.library.models.BookListModel;
-import agh.edu.pl.weedesign.library.models.LoginModel;
 import agh.edu.pl.weedesign.library.models.RegisterModel;
-import agh.edu.pl.weedesign.library.services.ReaderService;
+import agh.edu.pl.weedesign.library.services.DataService;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
-import agh.edu.pl.weedesign.library.entities.reader.Reader;
-import agh.edu.pl.weedesign.library.helpers.Encryptor;
-import agh.edu.pl.weedesign.library.helpers.ValidCheck;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
 @Component
-public class RegisterController extends IController {
+public class RegisterController extends SubController {
 
     // registration view
     @FXML
@@ -73,7 +66,8 @@ public class RegisterController extends IController {
     private final RegisterModel registerModel;
 
     @Autowired
-    public RegisterController(RegisterModel registerModel){
+    public RegisterController(RegisterModel registerModel, DataService dataService, MainController mainController){
+        super(dataService);
         this.registerModel = registerModel;
     }
 

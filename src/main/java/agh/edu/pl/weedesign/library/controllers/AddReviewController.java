@@ -1,11 +1,10 @@
 package agh.edu.pl.weedesign.library.controllers;
 
-import agh.edu.pl.weedesign.library.LibraryApplication;
 import agh.edu.pl.weedesign.library.entities.rental.Rental;
 import agh.edu.pl.weedesign.library.entities.review.Review;
 import agh.edu.pl.weedesign.library.entities.review.ReviewRepository;
-import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.RentalService;
 import agh.edu.pl.weedesign.library.services.ReviewService;
 import javafx.event.ActionEvent;
@@ -17,10 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.transaction.Transactional;
@@ -28,7 +24,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
-public class AddReviewController extends IController {
+public class AddReviewController extends SubController {
     private final RentalsController rentalsController;
     @FXML
     private Button cancelButton;
@@ -48,35 +44,34 @@ public class AddReviewController extends IController {
     private final ReviewRepository reviewRepository;
 
     @FXML
-    private ImageView image_cover;
+    public ImageView image_cover;
 
     @Autowired
-    public AddReviewController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService){
+    public AddReviewController(ReviewRepository reviewRepository, ReviewService reviewService, RentalsController rentalsController, RentalService rentalService, DataService dataService, MainController mainController){
+        super(dataService);
         this.reviewService = reviewService;
         this.rentalService = rentalService;
         this.rentalsController = rentalsController;
         this.reviewRepository = reviewRepository;
     }
 
-    @Override
-    public void consumeData(){
-        this.rental = rentalsController.getSelectedRental();
+
+    @FXML
+    public void initialize(){
+        this.rental = dataService.getRental();
+        System.out.println(this.rental.getBookCopy().getBook().getCoverUrl());
 
         Image img;
 
         try {
-            img = new Image("" + this.rental.getBookCopy().getBook().getCoverUrl() + "");
+            img = new Image(this.rental.getBookCopy().getBook().getCoverUrl());
             image_cover.setImage(img);
         } catch (Exception e){
             System.out.println("Cover not found");
         }
     }
-
     @FXML
-    public void initialize(){
-    }
-    @FXML
-    private void handleAddReviewAction(ActionEvent event){
+    private void handleAddReviewAction(ActionEvent event) throws IOException {
         if (this.choiceBox.getValue() == null){
             this.errorMsg.setText("Należy wybrać ocenę!");
             System.out.println("rate is null");
@@ -88,16 +83,16 @@ public class AddReviewController extends IController {
         saveReview(review);
     }
     @FXML
-    private void handleCancelAction(ActionEvent event){
-//        LibraryApplication.getAppController().switchScene(SceneType.SINGLE_RENTAL);
+    private void handleCancelAction(ActionEvent event) throws IOException {
+        super.switchScene(SceneType.SINGLE_RENTAL);
     }
 
     @Transactional
-    public void saveReview(Review review){
+    public void saveReview(Review review) throws IOException {
         rental.setReview(review);
         reviewService.addNewReview(review);
         rental = rentalService.updateRental(rental);
-//        LibraryApplication.getAppController().switchScene(SceneType.RENTALS_VIEW);
+        super.switchScene(SceneType.RENTALS_VIEW);
     }
 
     public void switchScene(SceneType sceneType) throws IOException {

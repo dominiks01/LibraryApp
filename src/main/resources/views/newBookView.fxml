@@ -84,7 +84,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="book_number_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="300.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <TextField fx:id="book_number_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="300.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -95,7 +95,7 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="title_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="20.0" prefWidth="230.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-text-box-border: #B22222;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <TextField fx:id="title_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="20.0" prefWidth="230.0" style="-fx-border-radius: 2; -fx-background-radius: 2; -fx-text-box-border: #B22222;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -106,7 +106,7 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="author_first_name_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <TextField fx:id="author_first_name_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -117,7 +117,7 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="no_of_copies_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="100.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <TextField fx:id="no_of_copies_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="100.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -133,7 +133,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="book_cover_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="70.0" prefHeight="26.0" prefWidth="155.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+            <TextField fx:id="book_cover_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="70.0" prefHeight="26.0" prefWidth="155.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                <opaqueInsets>
                   <Insets left="30.0" right="20.0" />
                </opaqueInsets>
@@ -141,7 +141,7 @@
                   <Insets left="10.0" right="40.0" />
                </padding>
             </TextField>
-            <ComboBox fx:id="categories" prefWidth="300.0" promptText="Categories" style="-fx-background-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <ComboBox fx:id="categories" prefWidth="300.0" promptText="Categories" style="-fx-background-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <Label prefHeight="18.0" prefWidth="189.0" text="Book Description" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                <padding>
                   <Insets left="50.0" />
@@ -158,7 +158,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="page_count_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <TextField fx:id="page_count_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -166,10 +166,13 @@
                   <Insets left="10.0" right="40.0" />
                </padding>
             </TextField>
-            <TextArea fx:id="book_description_text_area" maxHeight="89.0" maxWidth="300.0" minHeight="89.0" prefHeight="89.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+            <TextArea fx:id="book_description_text_area" maxHeight="89.0" maxWidth="300.0" minHeight="89.0" prefHeight="89.0" style="-fx-background-insets: 1; -fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </TextArea>
             <Label prefHeight="18.0" prefWidth="189.0" text="Table of content" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12">
                <padding>
@@ -179,7 +182,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextArea fx:id="table_of_content_text_area" maxHeight="86.0" maxWidth="300.0" minHeight="86.0" prefHeight="86.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="12">
+            <TextArea fx:id="table_of_content_text_area" maxHeight="86.0" maxWidth="300.0" minHeight="86.0" prefHeight="86.0" style="-fx-border-radius: 2; -fx-background-radius: 2; -fx-background-insets: 1;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="12">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -206,7 +209,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="author_surname_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <TextField fx:id="author_surname_text_field" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="225.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -227,7 +230,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="condition_textfield" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="100.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+            <TextField fx:id="condition_textfield" maxHeight="20.0" maxWidth="300.0" minHeight="30.0" minWidth="100.0" prefHeight="26.0" prefWidth="100.0" style="-fx-border-radius: 2; -fx-background-radius: 2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -257,13 +260,13 @@
                </HBox.margin>
             </Button>
             <Label contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="9.0" />
-            <Button fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Strona Główna">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mainPageButtonHandler" prefHeight="34.0" prefWidth="131.0" style="-fx-background-radius: 2;" text="Main Page">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
             <Label contentDisplay="BOTTOM" maxWidth="300000.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="logOut" alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Wyloguj się" HBox.hgrow="ALWAYS">
+            <Button alignment="CENTER" contentDisplay="BOTTOM" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#LogOutAction" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 2;" text="Log Out" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
