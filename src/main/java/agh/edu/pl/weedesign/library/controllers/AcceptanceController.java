@@ -76,4 +76,5 @@ public class AcceptanceController extends SubController {
         ((Stage) cancelButton.getScene().getWindow()).close();
     }
 
+
 }

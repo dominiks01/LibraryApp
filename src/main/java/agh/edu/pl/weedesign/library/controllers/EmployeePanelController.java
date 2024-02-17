@@ -77,6 +77,10 @@ public class EmployeePanelController extends SubController {
         super.switchScene(SceneType.LOGIN);
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void goBackAction(){
         super.goBack();
     }

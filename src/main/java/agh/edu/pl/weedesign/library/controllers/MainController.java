@@ -27,7 +27,6 @@ public class MainController {
     private final Stack<SceneType> undoStack = new Stack<>();
     private final Stack<SceneType> nextStack= new Stack<>();
 
-    private SubController currentSceneController;
     private DataService dataService;
 
     public MainController(DataService dataService) throws IOException {
@@ -50,7 +49,7 @@ public class MainController {
         assert loader != null;
         Parent root = loader.load();
 
-        currentSceneController = loader.getController();
+        SubController currentSceneController = loader.getController();
         currentSceneController.setMainController(this);
 
         if(this.primaryStage == null){
@@ -98,8 +97,6 @@ public class MainController {
 
     public void logOut() throws IOException {
         switchScene(SceneType.LOGIN);
-        dataService.setEmployee(null);
-        dataService.setReader(null);
     }
 
 }

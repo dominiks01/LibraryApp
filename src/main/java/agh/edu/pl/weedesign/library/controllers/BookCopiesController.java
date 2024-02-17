@@ -44,22 +44,7 @@ public class BookCopiesController extends SubController {
     @FXML
     private TableColumn<BookCopy, String> availabilityColumn;
 
-    // Navbar controls
-    @FXML
-    private Button mainPage;
-
-    @FXML
-    private Button myRentals;
-
-    @FXML
-    private Button logOut;
-
-    @FXML
-    private ChoiceBox<String> themeChange;
-
     private List<BookCopy> bookCopies;
-
-    private Book book;
 
     private ModelService service;
 
@@ -77,48 +62,27 @@ public class BookCopiesController extends SubController {
 
     @FXML
     public void initialize(){
-        fetchCopiesData();
+        loadData();
 
         idColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(String.valueOf(copyValue.getValue().getId())));
         conditionColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(copyValue.getValue().getCondition()));
         priceColumn.setCellValueFactory(copyValue -> new SimpleStringProperty(copyValue.getValue().getWeekUnitPrice() + " zł"));
-
-        availabilityColumn.setCellValueFactory(copyValue -> {
-
-            for(Rental rental : bookCopiesModel.getRentalsByBook(copyValue.getValue().getBook()))
-                if(rental.getEndDate() == null)
-                    return new SimpleStringProperty("Not Available");
-
-            return new SimpleStringProperty("Available");
-        });
+        availabilityColumn.setCellValueFactory(copyValue -> new SimpleStringProperty("Available"));
 
         bookTable.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                BookCopy toRent = bookTable.getSelectionModel().getSelectedItem();
-                boolean canBeRented = true;
-
-                for(Rental rental : bookCopiesModel.getRentalsByBookCopy(toRent))
-                    if(rental.getEndDate() == null){
-                        canBeRented = false;
-                        break;
-                    }
-
-                if(canBeRented){
-                    this.rentalModel.rentBook(toRent);
+                    this.rentalModel.rentBook(bookTable.getSelectionModel().getSelectedItem(), dataService.getReader());
                     try {
                         super.switchScene(SceneType.RENTALS_VIEW);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-            }
         });
     }
 
-    private void fetchCopiesData(){
-        this.book = super.dataService.getSelectedBook();
-        this.bookCopies = new ArrayList<>(this.bookCopiesModel.getBookCopies(this.book));
-        bookTable.setItems(FXCollections.observableList(this.bookCopies));
+    private void loadData(){
+        bookTable.setItems(FXCollections.observableList(this.bookCopiesModel.getBookCopies(super.dataService.getSelectedBook())));
     }
 
     public void goBackAction(){
@@ -142,21 +106,19 @@ public class BookCopiesController extends SubController {
         super.logOutAction();
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
+
     public void reserveBook(ActionEvent actionEvent) {
-        if (this.service.getReservationByBookAndReader(this.book, super.dataService.getReader()) != null){
+
+        if (this.service.getReservationByBookAndReader(dataService.getSelectedBook(), super.dataService.getReader()) != null){
             System.out.println("Reservation exist");
             return;
         }
-        for (BookCopy cpy: this.bookCopies){
-            if (this.availabilityColumn.getCellObservableValue(cpy).getValue().equals("Dostępna")){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Książka dostępna");
-                alert.setContentText("Książka jest dostępna do wypożyczenia");
-                alert.show();
-                return;
-            }
-        }
-        Reservation r = new Reservation( super.dataService.getReader(), LocalDateTime.now(), this.book);
+
+        Reservation r = new Reservation( super.dataService.getReader(), LocalDateTime.now(), dataService.getSelectedBook());
         this.service.addNewReservation(r);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Książka zarezerwowana");

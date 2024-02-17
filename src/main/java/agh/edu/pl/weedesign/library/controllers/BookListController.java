@@ -54,16 +54,6 @@ public class BookListController extends SubController {
     @FXML
     private TilePane mainPane;
 
-    // Navbar controls 
-    @FXML
-    private Button mainPage; 
-
-    @FXML
-    private Button myRentals; 
-
-    @FXML
-    private Button logOut;
-
     @FXML
     private VBox categoriesVBox;
 
@@ -71,7 +61,7 @@ public class BookListController extends SubController {
 
 
     @Autowired
-    public BookListController(BookListModel bookListModel, DataService dataService, MainController mainController){
+    public BookListController(BookListModel bookListModel, DataService dataService){
         super(dataService);
         this.bookListModel = bookListModel;
         this.bookListModel.setController(this);

@@ -118,6 +118,10 @@ public class SingleRentalController extends SubController {
         super.switchScene(SceneType.RENTALS_VIEW);
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void LogOutAction() throws IOException {
         super.logOutAction();
     }

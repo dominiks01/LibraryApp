@@ -43,6 +43,4 @@ public class ReaderService {
         return findByEmail(email).getPassword();
     }
 
-
-
 }

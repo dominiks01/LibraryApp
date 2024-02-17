@@ -121,6 +121,10 @@ public class RentalsController extends SubController {
         super.switchScene(SceneType.BOOK_LIST);
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void myRentalsButtonHandler(){
         return;
     }
@@ -131,9 +135,11 @@ public class RentalsController extends SubController {
 
     @Override
     public void reload(){
+        System.out.println(rentalModel.getReaderRentals(dataService.getReader()));
+
         this.rentals = rentalModel.getReaderRentals(dataService.getReader())
                 .stream()
-                .filter(x -> x.getEndDate() == null ||  !showAllBox.isSelected())
+                .filter(x -> x.getEndDate() == null ||  showAllBox.isSelected())
                 .toList();
 
         rentalsTable.setItems(FXCollections.observableList(this.rentals));

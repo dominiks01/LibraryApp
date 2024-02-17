@@ -112,6 +112,10 @@ public class NewBookController extends SubController {
         super.goForward();
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void mainPageButtonHandler() throws IOException {
         handleCancelAction();
     }

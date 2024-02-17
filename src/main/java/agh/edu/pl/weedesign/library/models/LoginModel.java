@@ -69,6 +69,7 @@ public class LoginModel {
 
             if (Objects.equals(userPassword, encryptedRealPassword) ) {
                 System.out.println("Access granted");
+                dataService.setReader(readerService.findByEmail(login));
                 return new ValidCheck(true, "");
             }
 

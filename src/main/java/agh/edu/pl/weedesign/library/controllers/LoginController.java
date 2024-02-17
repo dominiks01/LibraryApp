@@ -59,6 +59,7 @@ public class LoginController extends SubController {
         status = loginModel.login( loginField.getText(), encryptedUserPassword);
 
         if(status.isValid()) {
+            System.out.println(dataService.getReader().getEmail());
            super.switchScene(SceneType.BOOK_LIST);
         } else {
             messageLabel.setText("Bad login or password");

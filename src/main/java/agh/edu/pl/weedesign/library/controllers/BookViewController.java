@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import agh.edu.pl.weedesign.library.services.DataService;
 import agh.edu.pl.weedesign.library.services.ModelService;
+import agh.edu.pl.weedesign.library.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,14 +19,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 @Controller
 public class BookViewController extends SubController {
     private Book book;
-    private ModelService service;
+    private ReviewService service;
 
     @Autowired
-    public BookViewController(RentalModel rental_model, ModelService service, DataService dataService, MainController mainController){
+    public BookViewController(ReviewService service, DataService dataService){
         super(dataService);
         this.service = service;
     }
@@ -45,22 +45,7 @@ public class BookViewController extends SubController {
     @FXML
     private Label description_label;
 
-    @FXML
-    private Button rent_button;
 
-    @FXML
-    private Button cancel_button;
-
-    // navbar 
-    @FXML 
-    private Button mainPage;
-
-    @FXML
-    private Button  myRentals;
-
-    @FXML 
-    private Button logOut; 
-    
     @FXML
     public void initialize() throws IOException  {
         this.book = super.dataService.getSelectedBook();
@@ -72,20 +57,18 @@ public class BookViewController extends SubController {
 
         description_label.setText(book.getDescription());
         book_title_label.setText(book.getTitle());
-
-        author_label.setText(
-                "Author: " + book.getAuthorString()
-        );
+        author_label.setText("Author: " + book.getAuthorString());
 
         Image img;
 
         try {
-            img = new Image("" + book.getCoverUrl() + "");
+            img = new Image(book.getCoverUrl());
             image_cover.setImage(img);
         } catch (Exception e){
             System.out.println("Cover not found");
         }
-        Double rating = this.service.getAverageRating(book);
+
+        Double rating = this.service.getBookRating(book);
         rating_label.setText(rating == null ? "No ratings" : rating.toString());
     }
 
@@ -107,6 +90,10 @@ public class BookViewController extends SubController {
 
     public void goForwardAction(){
         super.goForward();
+    }
+
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
     }
 
     public void mainPageButtonHandler() throws IOException {

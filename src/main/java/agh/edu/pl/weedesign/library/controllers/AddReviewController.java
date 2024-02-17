@@ -112,4 +112,9 @@ public class AddReviewController extends SubController {
         super.logOutAction();
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
+
 }

@@ -19,14 +19,6 @@ public class RentalService {
         this.readerRepository = readerRepository;
     }
 
-    public Reader getReaderByEmail(String email){
-        return readerRepository.findByEmail(email);
-    }
-
-    public List<Rental> getAllRentals() {
-        return rentalRepository.findAll();
-    }
-
     public Rental getReaderById(Long id) {
         return rentalRepository.findById(Math.toIntExact(id)).orElse(null);
     }
@@ -42,20 +34,16 @@ public class RentalService {
         rentalRepository.delete(rental);
     }
 
-    public List<Rental> findByReader(Reader reader) {
-        return rentalRepository.findRentalsByReader(reader);
-    }
-
-    public List<Rental> getRentalsByReaderEmail(String email){
-        return rentalRepository.findRentalsByReader(this.getReaderByEmail(email));
-    }
-
     public List<Rental> getRentalsByReader(Reader reader){
         return rentalRepository.findRentalsByReader(reader);
     }
 
     public List<Rental> getRentalsByBookCopy(BookCopy bookCopy){
         return rentalRepository.findRentalsByBookCopy(bookCopy);
+    }
+
+    public List<Rental> getRentedBooks(){
+        return rentalRepository.getActualRentedBooks();
     }
 
     public List<Rental> getRentalsWithoutAcceptance(){

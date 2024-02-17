@@ -80,6 +80,10 @@ public class BookReviewsController extends SubController {
         super.switchScene(SceneType.BOOK_LIST);
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void myRentalsButtonHandler() throws IOException {
         super.switchScene(SceneType.RENTALS_VIEW);
     }

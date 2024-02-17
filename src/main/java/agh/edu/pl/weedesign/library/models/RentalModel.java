@@ -22,7 +22,6 @@ public class RentalModel {
 
     private final RentalService rentalService;
     private final ReservationService reservationService;
-    private DataService dataService;
 
     @Autowired
     public RentalModel( ReservationService reservationService, RentalService rentalService){
@@ -32,10 +31,6 @@ public class RentalModel {
 
     public List<Rental> getRentalsWithoutAcceptance(){
         return rentalService.getRentalsWithoutAcceptance();
-    }
-
-    public void setDataService(DataService dataService){
-        this.dataService = dataService;
     }
 
     public List<Rental> getReaderRentals(Reader r){
@@ -67,10 +62,10 @@ public class RentalModel {
         }
     }
 
-    @PostMapping
-    public void rentBook(@RequestBody BookCopy bookCopy){
+    public void rentBook(BookCopy bookCopy, Reader r){
         Rental rental = new Rental(LocalDateTime.now());
         rental.setBookCopy(bookCopy);
+        rental.setReader(r);
 
         rentalService.addNewRental(rental);
     }

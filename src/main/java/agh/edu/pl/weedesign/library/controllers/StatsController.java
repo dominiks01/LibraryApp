@@ -243,6 +243,10 @@ public class StatsController extends SubController {
         super.switchScene(SceneType.EMPLOYEE_PANEL);
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
 
     public void LogOutAction() throws IOException {
        super.logOutAction();

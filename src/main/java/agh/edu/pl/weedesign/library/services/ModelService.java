@@ -105,8 +105,9 @@ public class ModelService {
     public List<Rental> getRentalsByBook(Book book) {
         List<Rental> toReturn = new ArrayList<>();
         for(BookCopy bc : bookCopyRepository.findBookCopiesByBook(book))
-            toReturn.addAll(rentalRepository.getRentalsByBookCopy(bc));
+//            toReturn.addAll(rentalRepository.getRentalsByBookCopy(bc));
         return toReturn;
+        return null;
     }
 
     public List<Rental> getRentalsByCategory(Category category){

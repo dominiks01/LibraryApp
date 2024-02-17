@@ -142,6 +142,10 @@ public class RentalsAcceptanceController extends SubController {
         super.goForward();
     }
 
+    public void settingsButtonAction() throws IOException {
+        switchScene(SceneType.SETTINGS);
+    }
+
     public void mainPageButtonHandler() throws IOException {
         super.switchScene(SceneType.EMPLOYEE_PANEL);
     }

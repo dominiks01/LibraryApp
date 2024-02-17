@@ -26,24 +26,14 @@ public class DataService {
     private Reader reader;
     private Employee employee;
 
-
     private Rental rental;
     private Map<Book, ImageView> bookCovers = new HashMap<Book, ImageView>();
     private ArrayList<ImageView> visibleBookCovers = new ArrayList<>();
     private ArrayList<ImageView> popularBooksCovers = new ArrayList<>();
     private ArrayList<ImageView> recommendedBooksCovers = new ArrayList<>();
 
-
     private static DataService instance;
     private ArrayList<Label> categories = new ArrayList<>();
-
-    public Review getSelectedReview() {
-        return this.selectedReview;
-    }
-
-    public void setSelectedReview(Review selectedReview) {
-        this.selectedReview = selectedReview;
-    }
 
     public Book getSelectedBook() {
         return this.selectedBook;

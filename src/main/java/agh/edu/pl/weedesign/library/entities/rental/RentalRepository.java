@@ -12,14 +12,16 @@ import java.util.List;
 @Repository
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
 
+    @Query("SELECT r FROM Rental r WHERE r.reader = :reader")
     List<Rental> findRentalsByReader(Reader reader);
 
     List<Rental> findRentalsByBookCopy(BookCopy bookCopy);
 
-    @Query("SELECT r FROM Rental r WHERE EMPLOYEE_ID IS NULL")
+    @Query("SELECT r FROM Rental r WHERE r.employee IS NULL")
     List<Rental> findRentalsWithoutAcceptance();
 
-    List<Rental> getRentalsByBookCopy(BookCopy bookCopy);
+    @Query("SELECT r FROM Rental r WHERE r.end_date IS NULL")
+    List<Rental> getActualRentedBooks();
 
 
 }

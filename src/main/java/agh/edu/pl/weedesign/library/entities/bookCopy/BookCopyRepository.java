@@ -14,4 +14,5 @@ public interface BookCopyRepository extends JpaRepository<BookCopy, Integer> {
     List<Object[]> findBooksWithCopyCount(@Param("books") List<Book> books);
 
     List<BookCopy> findBookCopiesByBook(Book book);
+
 }

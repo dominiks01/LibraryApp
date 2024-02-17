@@ -1,5 +1,6 @@
 package agh.edu.pl.weedesign.library.services;
 
+import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.review.Review;
 import agh.edu.pl.weedesign.library.entities.review.ReviewRepository;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,9 @@ public class ReviewService {
 
     public Review addNewReview(Review review) {
         return this.reviewRepository.save(review);
+    }
+
+    public Double getBookRating(Book b){
+        return this.reviewRepository.findAverageRating(b);
     }
 }
