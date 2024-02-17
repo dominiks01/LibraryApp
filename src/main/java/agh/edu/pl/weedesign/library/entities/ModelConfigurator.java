@@ -50,7 +50,7 @@ public class ModelConfigurator {
     @Bean
     CommandLineRunner commandLineRunner(AuthorRepository authorRepository, BookRepository bookRepository, BookCopyRepository bookCopyRepository, CategoryRepository categoryRepository, EmployeeRepository employeeRepository, ReaderRepository readerRepository, RentalRepository rentalRepository, ReviewRepository reviewRepository) {
         return args -> {
-            if (false) {
+            if (bookRepository.findAll().isEmpty()) {
                 System.out.println("TEST");
                 // TODO: Opis jest przycinany w złych miejscach + Poprawić Autorów i Kategorie! 
 
