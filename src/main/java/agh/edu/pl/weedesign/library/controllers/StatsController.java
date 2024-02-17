@@ -179,7 +179,7 @@ public class StatsController extends SubController {
         //freq book
         Map<Book, Integer> freqBooks = new HashMap<>();
         for(Book book : this.modelService.getBooks())
-            freqBooks.put(book, this.modelService.getRentalsByBook(book).size());
+            freqBooks.put(book, this.modelService.getRentalsByBook(book) == null ? 0 :  this.modelService.getRentalsByBook(book).size() );
         List<Map.Entry<Book, Integer>> freqBooksList = new ArrayList<>(freqBooks.entrySet());
         freqBooksList.sort(Map.Entry.comparingByValue());
         Collections.reverse(freqBooksList);

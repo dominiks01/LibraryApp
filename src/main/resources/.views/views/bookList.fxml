@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--<?import agh.edu.pl.weedesign.library.helpers.SearchStrategy?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.BookFilterStrategy?>-->
 <!--<?import agh.edu.pl.weedesign.library.helpers.SortOrder?>-->
 <!--<?import agh.edu.pl.weedesign.library.helpers.FilterStrategy?>-->
 

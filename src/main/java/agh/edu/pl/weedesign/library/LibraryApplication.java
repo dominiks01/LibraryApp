@@ -5,6 +5,7 @@ import agh.edu.pl.weedesign.library.controllers.MainController;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.employee.Employee;
 import agh.edu.pl.weedesign.library.entities.reader.Reader;
+import agh.edu.pl.weedesign.library.helpers.BookFilterStrategy;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneFactory;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
 import agh.edu.pl.weedesign.library.services.DataService;
@@ -21,6 +22,7 @@ import java.util.Objects;
 import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -33,15 +35,9 @@ import javax.annotation.PostConstruct;
 public class LibraryApplication extends Application {
 	private DataService dataService;
 
-    private static SubController currentSceneController;
 	private static ConfigurableApplicationContext context;
-	private static Reader reader;
-	private static Book book;
-	private static Employee employee;
 	private static String theme = "Nord Dark";
 	private static ArrayList<Object> filterStrategy = null;
-	private static final SceneFactory factory = new SceneFactory();
-	private static MainController mainController;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -63,7 +59,6 @@ public class LibraryApplication extends Application {
 		return context;
 	}
 
-
 	public static String getTheme(){
 		return theme;
 	}
@@ -83,14 +78,6 @@ public class LibraryApplication extends Application {
 			default -> "nord_dark.css";
 		};
 
-		Application.setUserAgentStylesheet(LibraryApplication.class.getResource(pathToCss).toExternalForm());
-	}
-
-	public static void saveStrategy(ArrayList<Object> strategy){
-		filterStrategy = strategy;
-	}
-
-	public static ArrayList<Object> getStrategy(){
-		return filterStrategy;
+		Application.setUserAgentStylesheet(Objects.requireNonNull(LibraryApplication.class.getResource(pathToCss)).toExternalForm());
 	}
 }

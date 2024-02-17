@@ -1,16 +1,13 @@
 package agh.edu.pl.weedesign.library.helpers;
 
 public enum SearchStrategy {
-    NAME,
-    SURNAME,
-    TITLE;
+    CATEGORY,
+    AUTHOR;
 
-    @Override
     public String toString(){
-        return switch (this){
-            case NAME -> "Po imieniu autora";
-            case SURNAME -> "Po nazwisku autora";
-            case TITLE -> "Po tytule książki";
+        return switch (this) {
+            case AUTHOR -> "Filtruj po autorze";
+            case CATEGORY -> "Filtruj po kategorii";
         };
     }
 }

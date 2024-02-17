@@ -74,19 +74,11 @@ public class ModelConfigurator {
                 
                 for(String[] line: records){
 
-                        int no_pages; 
-                        try {
-                            no_pages = Integer.valueOf(line[10]);
-                        } catch (Exception e){
-                            no_pages = 0;
-                        }
-
-                
                         // Create new book 
                         Book book1 = new Book(
                                 line[2].replaceAll("[-+^]*", ""),
-                                line[7].substring(0, Math.min(4000, line[7].length())).replaceAll("[-+^]*", ""), 
-                                no_pages,
+                                line[7].substring(0, Math.min(4000, line[7].length())).replaceAll("[-+^]*", ""),
+                                Integer.parseInt(line[10]),
                                 "", 
                                 line[6].replaceAll("[-+^]*", "")
                         );
@@ -142,9 +134,11 @@ public class ModelConfigurator {
 
                         bookRepository.save(book1);
 
-                        // Creating Book Copies 
+                        // Creating Book Copies
                         Random rand = new Random();
-                        for(int i = 0; i < rand.nextInt(5) + 6; i++){
+
+                        for(int i = 0; i < rand.nextInt(7); i++){
+
                             int randValue = rand.nextInt(bookPrice.size());
                             Integer randomValue = (Integer)bookPrice.values().toArray()[randValue];
                             String randomKey = (String)bookPrice.keySet().toArray()[randValue];
@@ -156,7 +150,6 @@ public class ModelConfigurator {
                         }
 
                 }
-
 
                 Employee employee1 = new Employee("employee1", "employee1", 1000, "kk@kk.kk", "ppppppp", AccessLevel.ADMIN);
                 Employee employee2 = new Employee("employee2", "employee2", 976, "ll@kk.kk", "ppppppp");
@@ -173,10 +166,6 @@ public class ModelConfigurator {
                 Reader reader2 = new Reader("Janka", "Kowalska", "Warszawa", "Mazowieckie", "02-677", "Polska", "example2@email.com", "pass2", "987 654 321", LocalDate.of(2003, 5, 30), "female");
                 Reader reader3 = new Reader("Janusz", "Nowak", "Krakow", "Malopolska", "31-503", "Polska", "example3@email.com", "pass3", "999 888 777", LocalDate.of(1949, 11, 13), "male");
 
-                Review review1 = new Review(5, "Super", LocalDateTime.of(2023, 12, 2, 15, 4));
-                Review review2 = new Review(2, LocalDateTime.of(2023, 11, 30, 9, 36));
-
-                reviewRepository.saveAll(List.of(review1, review2));
                 readerRepository.saveAll(List.of(reader1, reader2, reader3));
 
             }

@@ -3,11 +3,13 @@ package agh.edu.pl.weedesign.library.models;
 import agh.edu.pl.weedesign.library.controllers.BookListController;
 import agh.edu.pl.weedesign.library.entities.book.Book;
 import agh.edu.pl.weedesign.library.entities.category.Category;
-import agh.edu.pl.weedesign.library.helpers.BookListProcessor;
+import agh.edu.pl.weedesign.library.helpers.BookFilterStrategy;
 import agh.edu.pl.weedesign.library.helpers.Recommender;
 import agh.edu.pl.weedesign.library.sceneObjects.SceneType;
+import agh.edu.pl.weedesign.library.services.BookCopyService;
 import agh.edu.pl.weedesign.library.services.BookService;
 import agh.edu.pl.weedesign.library.services.DataService;
+import agh.edu.pl.weedesign.library.services.ReviewService;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -25,32 +26,73 @@ import java.util.stream.Collectors;
 
 @Component
 public class BookListModel {
-    private ConfigurableApplicationContext springContext;
     private BookService service;
     private Category selectedCategory;
     private DataService dataService;
+    private final ReviewService reviewService;
+    private final BookCopyService bookCopyService;
     private BookListController controller;
-    private Recommender recommender;
-
-    private BookListProcessor bookListProcessor;
+    private final Recommender recommender;
+    private String searchString;
+    private Integer minRating, maxRating;
+    private Boolean avilableOnly = false;
 
     @Autowired
-    public BookListModel(ConfigurableApplicationContext springContext, BookService bookService, Recommender recommender ){
-        this.springContext = springContext;
+    public BookListModel(BookService bookService, Recommender recommender, ReviewService reviewService, BookCopyService bookCopyService){
+        this.bookCopyService = bookCopyService;
+        this.reviewService = reviewService;
         this.service = bookService;
         this.recommender = recommender;
     }
 
     public ArrayList<ImageView> getBookCovers(){
+         BookFilterStrategy strategy = dataService.getStrategy();
 
-        if(selectedCategory != null){
-            return dataService.getBookCovers().entrySet().stream()
-                    .filter(x->x.getKey().getCategory().getName().equals(this.selectedCategory.getName()))
-                    .map(Map.Entry::getValue)
-                    .collect(Collectors.toCollection(ArrayList::new));
-        }
+         return dataService.getBookCovers().entrySet().stream()
+                 .filter(x-> !strategy.getAvailable() || !bookCopyService.getCopiesAvailable(x.getKey()).isEmpty())
+                 .filter( x-> strategy.getCategory() == null ||x.getKey().getCategory().getName().equals(strategy.getCategory().getName()))
+                 .filter( x-> strategy.getSearchString() == null || x.getKey().getAuthorString().toLowerCase().contains(strategy.getSearchString().toLowerCase()) || x.getKey().getTitle().toLowerCase().contains(strategy.getSearchString().toLowerCase()))
+                 .filter(x-> strategy.getRating().getKey() == null || reviewService.getBookRating(x.getKey()) == null || strategy.getRating().getKey() <= reviewService.getBookRating(x.getKey()) && reviewService.getBookRating(x.getKey()) <= strategy.getRating().getValue())
+                 .map(Map.Entry::getValue)
+                 .collect(Collectors.toCollection(ArrayList::new));
+    }
 
-        return new ArrayList<>(dataService.getBookCovers().values());
+    public void clearStrategy(){
+        BookFilterStrategy strategy = dataService.getStrategy();
+        strategy.setRating(null, null);
+        strategy.setCategory(null);
+        strategy.setAvailable(false);
+        strategy.setSearchString(null);
+        dataService.setStrategy(strategy);
+        dataService.bookListMainDisplay(true);
+    }
+
+    public void selectCategory(Category selectedCategory) {
+        BookFilterStrategy strategy = dataService.getStrategy();
+        strategy.setCategory(selectedCategory);
+        this.dataService.setStrategy(strategy);
+        dataService.bookListMainDisplay(false);
+    }
+
+    public void setSearchedStringData(String s){
+        BookFilterStrategy strategy = dataService.getStrategy();
+        strategy.setSearchString(s);
+        this.dataService.setStrategy(strategy);
+        dataService.bookListMainDisplay(false);
+    }
+
+    public void setAvailableOnly(Boolean availableOnly){
+        BookFilterStrategy strategy = dataService.getStrategy();
+        strategy.setAvailable(availableOnly);
+        this.dataService.setStrategy(strategy);
+        dataService.bookListMainDisplay(false);
+    }
+
+    public void setRatingRange(Integer minRating, Integer maxRating){
+        BookFilterStrategy strategy = dataService.getStrategy();
+        strategy.setRating(minRating, maxRating);
+        this.dataService.setStrategy(strategy);
+        dataService.bookListMainDisplay(false);
     }
 
     public ArrayList<ImageView> getMostPopularBooks(){
@@ -92,8 +134,6 @@ public class BookListModel {
                     .collect(Collectors.toCollection(ArrayList::new)));
         }
 
-
-
         if (dataService.getRecommendedBooksCovers().isEmpty()){
             dataService.setRecommendedBooksCovers(
                     dataService.getBookCovers().entrySet().stream()
@@ -127,13 +167,6 @@ public class BookListModel {
         this.dataService = dataService;
     }
 
-    public Category getSelectedCategory() {
-        return selectedCategory;
-    }
-
-    public void selectCategory(Category selectedCategory) {
-        this.selectedCategory = selectedCategory;
-    }
 
     private Label createCategory(Category c){
         Label label = new Label();
@@ -172,7 +205,7 @@ public class BookListModel {
         Image img;
 
         try {
-            img = new Image("" + b.getCoverUrl() + "", true);
+            img = new Image(b.getCoverUrl(), true);
         } catch (Exception e){
             img = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("default_book_cover_2015.jpg")).toString(), true);
         }

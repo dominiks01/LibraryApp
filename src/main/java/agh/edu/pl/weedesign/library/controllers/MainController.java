@@ -57,6 +57,7 @@ public class MainController {
             this.primaryStage.setScene(new Scene(root));
             this.resize(1320, 950);
             this.primaryStage.show();
+            this.primaryStage.setTitle("LibraryApp");
         }
         else {
             this.primaryStage.setScene(new Scene(root));
@@ -69,7 +70,6 @@ public class MainController {
         this.primaryStage.setWidth(width);
         this.primaryStage.setHeight(height);
     }
-
 
     public void back() {
         try {

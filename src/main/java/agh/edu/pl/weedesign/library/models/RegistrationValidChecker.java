@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 
 @Component
 public class RegistrationValidChecker {
-    private int AGE_RESTRICTION = 0;
-    private int MIN_PASSWORD_LEN = 5;
+    private final int AGE_RESTRICTION = 0;
+    private final int MIN_PASSWORD_LEN = 5;
 
     @Autowired
     private ReaderService service;

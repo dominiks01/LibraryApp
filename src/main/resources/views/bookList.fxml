@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--<?import agh.edu.pl.weedesign.library.helpers.SearchStrategy?>-->
+<!--<?import agh.edu.pl.weedesign.library.helpers.BookFilterStrategy?>-->
 <!--<?import agh.edu.pl.weedesign.library.helpers.SortOrder?>-->
 <!--<?import agh.edu.pl.weedesign.library.helpers.FilterStrategy?>-->
 
@@ -177,6 +178,11 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
+                              <TextField fx:id="searchBookField" promptText="Search Book">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
                               <CheckBox fx:id="onlyAvailableCheckbox" graphicTextGap="0.0" mnemonicParsing="false" onMouseClicked="#availableOnlyCheckboxAction" text="Available only">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -204,6 +210,50 @@
                               <Insets />
                            </VBox.margin>
                         </ScrollPane>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="202.0" text="&gt; Book Rating Filter">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="firstBookRating" mnemonicParsing="false" onAction="#firstBookRatingActionHandler" prefHeight="27.0" prefWidth="302.0" text="0 - 4 ">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="25.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="secondBookRating" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#secondBookRatingActionHandler" prefHeight="27.0" prefWidth="302.0" text="4 - 6">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="25.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="thirdBookRating" layoutX="10.0" layoutY="37.0" mnemonicParsing="false" onAction="#thirdBookRatingActionHandler" prefHeight="27.0" prefWidth="302.0" text="6 - 8">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="25.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="fourthBookRating" layoutX="10.0" layoutY="64.0" mnemonicParsing="false" onAction="#fourthBookRatingActionHandler" prefHeight="27.0" prefWidth="302.0" text="8+ ">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="25.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets left="7.0" />

@@ -93,11 +93,23 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="818.0" minHeight="10.0" prefHeight="799.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <CheckBox fx:id="showAllBox" mnemonicParsing="false" onMouseClicked="#showAllRentals" text="Show All Books" />
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="LibraryApp / My Rentals">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="7.0" right="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <CheckBox fx:id="showAllBox" mnemonicParsing="false" onMouseClicked="#showAllRentals" text="Show Rental History" />
+               </children>
+            </HBox>
             <TableView fx:id="rentalsTable" style="-fx-background-color: transparent; -fx-background-radius: 2; -fx-border-width: 1; -fx-border-radius: 3; -fx-border-insets: 2; -fx-padding: 1;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="titleColumn" minWidth="-1.0" prefWidth="342.0">
