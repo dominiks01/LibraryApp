@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="agh.edu.pl.weedesign.library.LibraryApplication" />
     <module name="library.main" />
     <shortenClasspath name="NONE" />
-    <option name="VM_PARAMETERS" value="--module-path C:\Users\Dominik\Desktop\Library\LibraryApp\lib\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib --add-modules=javafx.controls,javafx.fxml" />
+    <option name="VM_PARAMETERS" value="--module-path C:\Users\Dominik\Desktop\LibraryApp\lib\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib --add-modules=javafx.controls,javafx.fxml" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="agh.edu.pl.weedesign.library.*" />

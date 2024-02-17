@@ -18,7 +18,7 @@ public class EmailService {
 
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("apkabiblioteka@onet.pl");
+        message.setFrom("youremail@onet.pl");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -27,16 +27,15 @@ public class EmailService {
 
     private JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.poczta.onet.pl");
+        mailSender.setHost("smtp.server");
         mailSender.setPort(587);
 
-        mailSender.setUsername("apkabiblioteka@onet.pl");
-        mailSender.setPassword("Apkabiblioteka1");
+//        mailSender.setUsername("youremail@onet.pl");
+//        mailSender.setPassword("yourpassword!");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-
 
         return mailSender;
     }
