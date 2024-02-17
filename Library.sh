@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ustawienia dla ścieżki modułów JavaFX
-module_path="C:\Users\Dominik\Desktop\Library\LibraryApp\lib\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib"
+module_path=".\lib\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib"
 add_modules="javafx.controls,javafx.fxml"
 # Twoja klasa główna
 main_class="agh.edu.pl.weedesign.library.LibraryApplication"
