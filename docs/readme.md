@@ -17,6 +17,9 @@ Small project for Object-oriented technologies 23/24 course at AGH.
 * View book information, including cover
 * Various permissions
 * System sends emails with notifications
+
+# Books Dataset
+* https://www.kaggle.com/datasets/dylanjcastillo/7k-books-with-metadata
 <br />
 
 ![image](https://github.com/dominiks01/LibraryApp/assets/114943272/60fd869b-9d2a-4659-bf8f-852bf0178648) <br />
