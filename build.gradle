@@ -30,7 +30,7 @@ javafx {
 repositories {
 	mavenCentral()
 	flatDir {
-		dirs './lib/openjfx-21.0.2_linux-x64_bin-sdk/javafx-sdk-21.0.2/lib'	
+		dirs './lib/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib'	
 	}	
 }
 
