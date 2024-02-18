@@ -29,8 +29,8 @@ javafx {
 
 repositories {
 	mavenCentral()
-	fladDir {
-		dirs './lib/openjfx-21.0.2_linux-x64_bin_sdk/javafx-sdk-21.0.2/lib'	
+	flatDir {
+		dirs './lib/openjfx-21.0.2_linux-x64_bin-sdk/javafx-sdk-21.0.2/lib'	
 	}	
 }
 
@@ -59,8 +59,8 @@ dependencies {
 	implementation "org.jsoup:jsoup:1.16.1"
 	implementation 'com.opencsv:opencsv:4.1'
 	implementation 'com.sun.mail:javax.mail:1.6.2'
-	implementation name 'javafx.controls'
-	implementation name 'javafx.fxml'
+	implementation name: 'javafx.controls'
+	implementation name: 'javafx.fxml'
 }
 
 
