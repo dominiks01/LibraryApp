@@ -47,7 +47,7 @@ public class LibraryApplication extends Application {
 	public void start(Stage stage) throws IOException {
 		Application.setUserAgentStylesheet(Objects.requireNonNull(getClass().getResource("/themes/nord-dark.css")).toExternalForm());
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LibraryApplication.class);
-//		builder.application().setWebApplicationType(WebApplicationType.NONE);
+		builder.application().setWebApplicationType(WebApplicationType.NONE);
 
 		context = builder.run();
 

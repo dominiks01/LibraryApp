@@ -29,7 +29,6 @@ public class LoginModel {
     }
 
     public void setDataService(DataService dataService) {
-        System.out.println("XD " + dataService);
         this.dataService = dataService;
     }
 
